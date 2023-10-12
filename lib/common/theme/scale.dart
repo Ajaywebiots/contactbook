@@ -49,6 +49,7 @@ class Insets {
   static const double i100 = 100 * scale;
   static const double i120 = 120 * scale;
   static const double i130 = 130 * scale;
+  static const double i250 = 250 * scale;
 }
 
 class AppRadius{

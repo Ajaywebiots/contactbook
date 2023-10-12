@@ -174,7 +174,7 @@ class AppTheme {
 
   ThemeData get themeData {
     var t = ThemeData.from(
-      textTheme: (isDark ? ThemeData.dark() : ThemeData.light()).textTheme,useMaterial3: true,
+      textTheme: (isDark ? ThemeData.dark() : ThemeData.light()).textTheme,
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: primary,

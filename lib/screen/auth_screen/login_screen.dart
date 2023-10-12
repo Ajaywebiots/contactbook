@@ -1,7 +1,7 @@
 import 'package:contactbook/config.dart';
 import 'package:contactbook/provider/auth_provider/login_provider.dart';
 import 'package:contactbook/screen/auth_screen/register_screen.dart';
-import 'package:contactbook/screen/app_screen/selection_screen.dart';
+import 'package:contactbook/selection_screen.dart';
 import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:contactbook/user.dart';
 import 'package:contactbook/widgets/text_common_widget.dart';
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     "Please Check Your Email or Password")));
                                       }
                                     });
-                                    Provider.of<User>(context, listen: false)
+                                    Provider.of<UserLogin>(context, listen: false)
                                         .signIn(value.emailCtrl.text.toString(),
                                             value.passwordCtrl.text.toString());
                                   },

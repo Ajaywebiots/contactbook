@@ -46,7 +46,7 @@ class TextFieldCommon extends StatelessWidget {
 // Text field common
     return TextFormField(
         maxLines: maxLines ?? 1,
-        style: TextStyle(color:Colors.black),
+        style: const TextStyle(color:Colors.black),
         focusNode: focusNode,
         obscureText: obscureText,
         keyboardType: keyboardType,
@@ -79,9 +79,9 @@ class TextFieldCommon extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(
               vertical: vertical ?? 17.0, horizontal: 15.0),
           hintText: hintText,
-          hintStyle: TextStyle(color:const Color(0xff767676)),
+          hintStyle: const TextStyle(color:Color(0xff767676)),
           labelStyle:
-              TextStyle(color: Color(0xff767676)),
+              const TextStyle(color: Color(0xff767676)),
         ));
   }
 }

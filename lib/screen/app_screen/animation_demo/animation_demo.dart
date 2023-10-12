@@ -1,9 +1,9 @@
-import 'dart:math';
-
-import 'package:contactbook/provider/animation_provider/animation_provider.dart';
-import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
+import 'package:contactbook/screen/app_screen/date_&_time/layouts/flutter_time_picker_spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../provider/animation_provider/animation_provider.dart';
+import '../../../provider/onboarding_provider/stateful_wrapper.dart';
 
 class AnimationDemo extends StatefulWidget {
   const AnimationDemo({super.key});
@@ -14,6 +14,8 @@ class AnimationDemo extends StatefulWidget {
 
 class _AnimationDemoState extends State<AnimationDemo>
     with SingleTickerProviderStateMixin {
+  DateTime dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AnimationProvider>(builder: (context, value, child) {

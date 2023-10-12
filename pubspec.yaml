@@ -49,13 +49,16 @@ dependencies:
   syncfusion_flutter_sliders:
   table_calendar:
   intl:
-  get:
-  get_storage:
   flutter_clip_shadow:
   carousel_slider:
-
-
-
+  firebase_auth:
+  firebase_core:
+  firebase_messaging:
+  firebase_database:
+  cloud_firestore:
+  device_info_plus:
+  flutter_local_notifications:
+  dio:
 
 dev_dependencies:
   flutter_test:

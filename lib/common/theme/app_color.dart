@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   //final Color primaryColor = const Color(0xFF1B2F4A);
-  final Color primaryColor = const Color(0xFF1a2e48);
+  final Color primaryColor = const Color(0xff5465FF);
   final Color secondaryColor = const Color(0xFF549FC8);
-  final Color primarlightColor = const Color(0xFFe9f7ff);
+  final Color primaryLightColor = const Color(0xFFe9f7ff);
   final Color buttonColor1 = const Color(0xFF356183);
   final Color buttonColor2 = const Color(0xFF3f769a);
   final Color buttonColor3 = const Color(0xFF5098c0);

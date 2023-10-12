@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:contactbook/provider/auth_provider/splashscreen_provider.dart';
-import 'package:contactbook/screen/app_screen/selection_screen.dart';
+import 'package:contactbook/selection_screen.dart';
 import 'package:contactbook/screen/auth_screen/login_screen.dart';
 import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:flutter/material.dart';
@@ -30,17 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SplashScreenController>(
-      builder: (context, value, child) {
-        value.getContact(context);
-        return Scaffold(
+    return Consumer<SplashScreenController>(builder: (context, value, child) {
+      value.getContact(context);
+      return Scaffold(
           backgroundColor: Colors.blue,
-          body: Center(
-            child: Lottie.asset("assets/animation/contacts.json"),
-          ),
-        );
-      },
-    );
+          body: Center(child: Lottie.asset("assets/animation/contacts.json")));
+    });
   }
 
   Future<void> forGetData() async {

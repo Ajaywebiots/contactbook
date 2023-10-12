@@ -1,3 +1,4 @@
+import 'package:contactbook/config.dart';
 import 'package:contactbook/screen/auth_screen/login_screen.dart';
 import 'package:fast_contacts/fast_contacts.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class DashBoardController extends ChangeNotifier {
 
   logOutButton(context) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("LoginOut Success")));
+        .showSnackBar( SnackBar(content: Text(textCommon.logoutSuccess)));
     Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (context) {
         return const LoginScreen();

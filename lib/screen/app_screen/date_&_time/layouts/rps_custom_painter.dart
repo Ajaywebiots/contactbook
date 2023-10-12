@@ -208,7 +208,7 @@ class RPSCustomPainter extends CustomPainter {
     path_1.close();
 
     Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.color = Color(0xff5465FF).withOpacity(0.1);
+    paint_1_fill.color = const Color(0xff5465FF).withOpacity(0.1);
     canvas.drawPath(path_1, paint_1_fill);
 
     Path path_2 = Path();
@@ -1862,7 +1862,7 @@ class RPSCustomPainter extends CustomPainter {
     path_2.close();
 
     Paint paint_2_fill = Paint()..style = PaintingStyle.fill;
-    paint_2_fill.color = Color(0xff5465FF).withOpacity(1.0);
+    paint_2_fill.color = const Color(0xff5465FF).withOpacity(1.0);
     canvas.drawPath(path_2, paint_2_fill);
   }
 
