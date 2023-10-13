@@ -1,6 +1,6 @@
 import 'package:contactbook/config.dart';
 import 'package:contactbook/provider/auth_provider/login_provider.dart';
-import 'package:contactbook/screen/auth_screen/register_screen.dart';
+import 'package:contactbook/screen/auth_screen/auth_pages/register_screen.dart';
 import 'package:contactbook/selection_screen.dart';
 import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:contactbook/user.dart';

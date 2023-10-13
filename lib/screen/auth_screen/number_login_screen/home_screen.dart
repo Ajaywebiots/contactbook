@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contactbook/provider/number_login_provider/home_screen_provider.dart';
 import 'package:contactbook/screen/app_screen/chat_screen/chat_user.dart';
-import 'package:contactbook/screen/auth_screen/number_login_screen/demo.dart';
+import 'package:contactbook/screen/auth_screen/number_login_screen/ChatScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -129,15 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: StreamBuilder(
               stream: usersStream,
               builder: (context, snapshot) {
-                // final list = [];
-                // if (snapshot.hasData) {
-                //   final data = snapshot.data?.docs;
-                //   for (var i in data!) {
-                //     log("data : ${data[0].data()}");
-                //     list.add(i.data());
-                //     log("list $list");
-                //   }
-                // }
+
                 if (snapshot.hasError) {
                   return const Text("Something is wrong");
                 }
@@ -151,20 +143,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (_, index) {
                           final userDetails =
-                              snapshot.data!.docChanges[index].doc;
+                              snapshot.data!.docs[index];
                           // final userData = snapshot.data!.docs[index].data()
                           //     as Map<String, dynamic>;
                           return GestureDetector(
                               onTap: () {
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) {
-                                //   return ChatScreen(userDetails);
-                                // }));
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return ChatScreen11(userData: userDetails,);
-                                  },
-                                ));
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ChatScreen(
+                                      userData: userDetails);
+                                }));
                               },
                               child: Column(children: [
                                 const SizedBox(height: 4),

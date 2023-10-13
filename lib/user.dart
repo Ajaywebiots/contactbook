@@ -1,4 +1,4 @@
-import 'package:contactbook/screen/auth_screen/splash_screen.dart';
+import 'package:contactbook/screen/auth_screen/auth_pages/splash_screen.dart';
 import 'package:flutter/foundation.dart';
 
 class UserLogin with ChangeNotifier{

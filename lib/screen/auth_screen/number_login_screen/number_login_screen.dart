@@ -53,8 +53,6 @@ class _NumberLoginState extends State<NumberLogin> {
                                           border: InputBorder.none,
                                           hintText: textCommon.phone)))
                             ])),
-
-                    ///
                     const SizedBox(height: 20),
                     SizedBox(
                         width: double.infinity,

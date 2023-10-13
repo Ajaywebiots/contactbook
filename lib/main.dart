@@ -13,7 +13,7 @@ import 'package:contactbook/provider/onboarding_provider/onboarding_provider2.da
 import 'package:contactbook/provider/popup_list_provider.dart';
 import 'package:contactbook/provider/selection_provider.dart';
 import 'package:contactbook/screen/auth_screen/number_login_screen/firebaseApi.dart';
-import 'package:contactbook/screen/auth_screen/splash_screen.dart';
+import 'package:contactbook/screen/auth_screen/auth_pages/splash_screen.dart';
 import 'package:contactbook/user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,8 @@ final navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await NotificationServices().getDeviceToken();
+  await NotificationServices().initNotification();
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserLogin()),
     ChangeNotifierProvider(create: (_) => LoginController()),

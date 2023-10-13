@@ -1,7 +1,7 @@
 import 'package:contactbook/common/theme/app_css.dart';
 import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/provider/auth_provider/register_provider.dart';
-import 'package:contactbook/screen/auth_screen/login_screen.dart';
+import 'package:contactbook/screen/auth_screen/auth_pages/login_screen.dart';
 import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:contactbook/widgets/text_common_widget.dart';
 import 'package:flutter/material.dart';

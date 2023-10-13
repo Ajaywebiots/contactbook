@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:contactbook/provider/local_contact_provider.dart';
-import 'package:contactbook/screen/auth_screen/splash_screen.dart';
+import 'package:contactbook/screen/auth_screen/auth_pages/splash_screen.dart';
 import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

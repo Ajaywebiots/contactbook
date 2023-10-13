@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../config.dart';
-import '../screen/auth_screen/splash_screen.dart';
+import '../screen/auth_screen/auth_pages/splash_screen.dart';
 import '../screen/services/database_model_class.dart';
 
 class LocalContactController extends ChangeNotifier {
