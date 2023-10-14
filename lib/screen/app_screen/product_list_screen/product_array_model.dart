@@ -39,7 +39,7 @@ class ProductModel {
         "https://m.media-amazon.com/images/I/61hEqppV-ZL._UY741_.jpg",
         "https://m.media-amazon.com/images/I/61F7jsuwNmL._SY741._SX._UX._SY._UY_.jpg"
       ],
-      "name": "Veirdo® Oversized Loose Baggy Fit Drop Shooulder Half Sleeves",
+      "name": "Veirdo Oversized Loose Baggy Fit Drop Shoulder Half Sleeves",
       "size": ["S", "M", "L", "XL"],
       "color": ["red", "White", "Black"],
       "price": "₹349"
@@ -111,10 +111,12 @@ class ProductModel {
       "price": "₹199"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/51UNT6dEkmL._UY741_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/51UNT6dEkmL._UY741_.jpg"
+      ],
       "name": "LEWEL Men's Stylish Polo Neck Printed Full Sleeve T-Shirt",
       "size": ["S", "M", "L", "XL"],
-      "color": "Color28",
+      "color": "Black",
       "price": "₹339"
     },
     {
@@ -128,21 +130,18 @@ class ProductModel {
       "price": "₹339"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/71O1QaI-sbL._UY741_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/71O1QaI-sbL._UY741_.jpg"
+      ],
       "name": "LEWEL Men's Stylish Polo Neck Printed Full Sleeve T-Shirt",
       "size": ["S", "M", "L", "XL"],
       "color": "Green",
       "price": "₹495"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/71cQVQcdp6L._UY741_.jpg",
-      "name": "LEWEL Men's Stylish Polo Neck Printed Full Sleeve T-Shirt",
-      "size": ["S", "M", "L", "XL"],
-      "color": "Maroon",
-      "price": "₹249"
-    },
-    {
-      "imageUrl": "https://m.media-amazon.com/images/I/71cQVQcdp6L._UY741_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/71cQVQcdp6L._UY741_.jpg"
+      ],
       "name": "LEWEL Men's Stylish Polo Neck Printed Full Sleeve T-Shirt",
       "size": ["S", "M", "L", "XL"],
       "color": "Maroon",
@@ -182,7 +181,9 @@ class ProductModel {
       "price": "₹289"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/613KABeTdwL._UY741_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/613KABeTdwL._UY741_.jpg"
+      ],
       "name": "LEOTUDE Men's Cottoblend Half Sleeve",
       "size": ["S", "M", "L", "XL"],
       "color": "Black",
@@ -200,9 +201,11 @@ class ProductModel {
       "price": " ₹279"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/715c1HNYIBL._UX679_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/715c1HNYIBL._UX679_.jpg"
+      ],
       "name":
-          "Veirdo® Oversized Loose Fit Relaxed Wide Fit Cotton Paisley Half Sleeves",
+          "Veirdo Oversized Loose Fit Relaxed Wide Fit Cotton Paisley Half Sleeves",
       "size": ["S", "M", "L", "XL"],
       "color": "Blue",
       "price": " ₹279"
@@ -219,7 +222,9 @@ class ProductModel {
       "price": " ₹399"
     },
     {
-      "imageUrl": "https://m.media-amazon.com/images/I/71dDUFGJPXL._UY741_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/71dDUFGJPXL._UY741_.jpg"
+      ],
       "name": "Jump Cuts Mens Printed Polo",
       "size": ["S", "M", "L", "XL"],
       "color": "Navy",
@@ -238,8 +243,9 @@ class ProductModel {
       "price": " ₹249"
     },
     {
-      "imageUrl":
-          "https://m.media-amazon.com/images/I/51Fe+FFGCvL._SY741._SX._UX._SY._UY_.jpg",
+      "imageUrl": [
+        "https://m.media-amazon.com/images/I/51Fe+FFGCvL._SY741._SX._UX._SY._UY_.jpg"
+      ],
       "name": "DHRUVI TRENDZ Men Pajama Set",
       "size": ["S", "M", "L", "XL"],
       "color": "White",
