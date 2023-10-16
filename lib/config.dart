@@ -27,4 +27,4 @@ const bgColor = Color(0xffffc52a);
 final TextCommon textCommon = TextCommon();
 final SvgAssets svgAssets = SvgAssets();
 final AppArray appArray = AppArray();
-final ProductModel productModel = ProductModel();
+

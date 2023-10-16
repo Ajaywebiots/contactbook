@@ -1,3 +1,4 @@
+import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/popup_list_provider.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class PriceRate extends StatelessWidget {
       double height = value.heightMQ(context);
       double width = value.widthMQ(context);
       return Column(children: [
-        const ListTile(title: Text("Price range")),
+        const Row(children: [Text("Price range")])
+            .padding(horizontal: 15, vertical: 20),
         Container(
             height: height * 0.08,
             width: width * 0.92,
@@ -23,7 +25,8 @@ class PriceRate extends StatelessWidget {
                     side: BorderSide(color: Color(0xffF5F6F7)),
                     borderRadius: SmoothBorderRadius.all(
                         SmoothRadius(cornerRadius: 10, cornerSmoothing: 1))))),
-        const ListTile(title: Text("Rates")),
+        const Row(children: [Text("Rates")])
+            .padding(horizontal: 15, vertical: 20),
         Expanded(
             child: ListView.builder(
                 itemCount: value.ratingList.length,
@@ -48,7 +51,7 @@ class PriceRate extends StatelessWidget {
                                           shape: BoxShape.circle,
                                           color: const Color(0xff5465FF)
                                               .withOpacity(0.18)),
-                                      child: const Icon(Icons.circle,
+                                      child:  const Icon(Icons.circle,
                                           color: Color(0xff5465FF), size: 13))
                                   : Container(
                                       width: 22,

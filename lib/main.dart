@@ -19,6 +19,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/auth_provider/register_provider.dart';
+import 'provider/product_list_provider/product_list_provider.dart';
 
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -43,7 +44,8 @@ void main() async {
     ChangeNotifierProvider(create: (_) => DateTimeProvider()),
     ChangeNotifierProvider(create: (_) => VerificationProvider()),
     ChangeNotifierProvider(create: (_) => NumberLoginProvider()),
-    ChangeNotifierProvider(create: (_) => HomeScreenProvider())
+    ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
+    ChangeNotifierProvider(create: (_) => ProductListProvider()),
   ], child: const MyApp()));
 }
 

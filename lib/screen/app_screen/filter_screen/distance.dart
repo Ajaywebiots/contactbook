@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:contactbook/extensions/spacing.dart';
+import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/popup_list_provider.dart';
 import 'package:figma_squircle/figma_squircle.dart';
@@ -34,7 +35,8 @@ class _DistanceState extends State<Distance> {
             });
           },
           child: Column(children: [
-            const ListTile(title: Text("Distance")),
+            const Row(children: [Text("Distance")])
+                .padding(horizontal: 15, vertical: 20),
             Card(
                 elevation: 2,
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
