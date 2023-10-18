@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/product_list_provider/product_list_provider.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/color_grid.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/modelclass.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/layouts/product_grid_layout.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/product_array_model.dart';
 import 'package:figma_squircle/figma_squircle.dart';
@@ -18,15 +20,33 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+
+  Color? selectedColor;
+
+// Create a function to filter products by color:
+  List<Product> filterProductsByColor(Color color) {
+    return productArrayList.where((product) {
+      return product.color.contains(color.value.toRadixString(16).substring(2));
+    }).toList();
+  }
+
+// Update the selected color when a color is tapped:
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductListProvider>(
         builder: (context, productListPvr, child) {
-          final filterProducts = productArrayList.where((product) {
-            return productListPvr.selectedSize.isEmpty ||
-                // ignore: iterable_contains_unrelated_type
-                productListPvr.selectedSize.contains(product.size);
-          }).toList();
+          void onColorSelected(int index) {
+            setState(() {
+              selectedColor = Color(int.parse(productListPvr.colorList[index].substring(1, 7), radix: 16) + 0xFF000000);
+            });
+          }
+          log("onColorSelected::::$onColorSelected");
+          // final filterProducts = productArrayList.where((product) {
+          //   return productListPvr.selectedSize.isEmpty ||
+          //       // ignore: iterable_contains_unrelated_type
+          //       productListPvr.selectedSize.contains(product.size);
+          // }).toList();
 
 
           return StatefulWrapper(
@@ -211,8 +231,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                                                         ]));
                                                               })
                                                               : value
-                                                              .isSelected ==
-                                                              1
+                                                              .isSelected == 1
                                                               ? Expanded(
                                                             child: Column(
                                                               children: [
@@ -268,15 +287,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                                                       )
                                                                     ]
                                                                 ).inkWell(
-                                                                    context,
-                                                                    onTap: () {
-                                                                      setState(() {
-                                                                        productListPvr
-                                                                            .isSelectedAllColor =
-                                                                        !productListPvr
-                                                                            .isSelectedAllColor;
-                                                                      });
-                                                                    }),
+                                                                  context,
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                      productListPvr
+                                                                          .isSelectedAllColor =
+                                                                      !productListPvr
+                                                                          .isSelectedAllColor;
+                                                                    });
+                                                                  },
+                                                                ),
                                                                 Expanded(
                                                                     child: SizedBox(
                                                                         height: 200,
@@ -573,8 +593,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                                                       productListPvr
                                                                           .sizeList));
                                                             }
-
-
                                                             setState(() {
                                                               Navigator.pop(
                                                                   context);
@@ -594,27 +612,28 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                            child: GridView.builder(
-                                itemCount: productArrayList.length,
-                                gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 15,
-                                    mainAxisSpacing: 15,
-                                    crossAxisCount: 2),
-                                itemBuilder: (context, index) {
-                                  return ProductGrid(
-                                      productArrayList[index]);
-                                }) /*GridView.builder(
-                                itemCount: filterProducts.length,
-                                gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 15,
-                                    mainAxisSpacing: 15,
-                                    crossAxisCount: 2),
-                                itemBuilder: (context, index) {
-                                  return ColorGrid(
-                                    filterProducts[index]);
-                                })*/)
+                          child: productListPvr.listView ? GridView.builder(
+                            itemCount: productArrayList.length,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
+                              crossAxisCount: 2,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ProductGrid(productArrayList[index]);
+                            },
+                          ) : GridView.builder(
+                            itemCount: filterProductsByColor(selectedColor!).length,
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
+                              crossAxisCount: 2,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ColorGrid(filterProductsByColor(selectedColor!)[index]);
+                            },
+                          ),
+                        )
                       ]).padding(all: 20)));
         });
   }
