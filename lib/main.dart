@@ -12,6 +12,7 @@ import 'package:contactbook/provider/onboarding_provider/onboarding_provider1.da
 import 'package:contactbook/provider/onboarding_provider/onboarding_provider2.dart';
 import 'package:contactbook/provider/popup_list_provider.dart';
 import 'package:contactbook/provider/selection_provider.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/product_list_screen.dart';
 import 'package:contactbook/screen/auth_screen/number_login_screen/firebaseApi.dart';
 import 'package:contactbook/screen/auth_screen/auth_pages/splash_screen.dart';
 import 'package:contactbook/user.dart';
@@ -55,6 +56,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: SplashScreen(), debugShowCheckedModeBanner: false);
+        home: ProductListScreen(), debugShowCheckedModeBanner: false);
   }
 }
