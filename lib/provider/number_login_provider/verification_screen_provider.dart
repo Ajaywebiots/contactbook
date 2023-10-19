@@ -73,8 +73,7 @@ class VerificationProvider extends ChangeNotifier {
                       final deviceId = deviceInfo.id;
                       log("phoneCtrl : ${phoneCtrl.text}");
                       log("deviceInfo : $deviceId");
-                      ref
-                          .where('number', isEqualTo: phoneCtrl.text)
+                      ref.where('number', isEqualTo: phoneCtrl.text)
                           .limit(1)
                           .get()
                           .then((value) {

@@ -1,16 +1,19 @@
-import 'dart:developer';
+import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/product_list_provider/product_list_provider.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/color_grid.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/modelclass.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/product_grid_layout.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/color_list_layout.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_container_layout.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_gridview_layout.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_row_layout.dart';
+import 'package:contactbook/screen/app_screen/product_list_screen/layouts/size_list_layout.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/product_array_model.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
+import 'package:contactbook/common/theme/app_css.dart';
+import 'layouts/range_slider_layout.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -20,621 +23,286 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
-
-  Color? selectedColor;
-
-// Create a function to filter products by color:
-  List<Product> filterProductsByColor(Color color) {
-    return productArrayList.where((product) {
-      return product.color.contains(color.value.toRadixString(16).substring(2));
-    }).toList();
-  }
-
-// Update the selected color when a color is tapped:
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductListProvider>(
         builder: (context, productListPvr, child) {
-          void onColorSelected(int index) {
-            setState(() {
-              selectedColor = Color(int.parse(productListPvr.colorList[index].substring(1, 7), radix: 16) + 0xFF000000);
-            });
-          }
-          log("onColorSelected::::$onColorSelected");
-          // final filterProducts = productArrayList.where((product) {
-          //   return productListPvr.selectedSize.isEmpty ||
-          //       // ignore: iterable_contains_unrelated_type
-          //       productListPvr.selectedSize.contains(product.size);
-          // }).toList();
-
-
-          return StatefulWrapper(
-              onInit: () =>
-                  Future.delayed(const Duration(milliseconds: 100),
-                          () =>
-                          productListPvr.removeDuplicateBySize(
-                              productArrayList)),
-              child: Scaffold(
-                  appBar: AppBar(backgroundColor: Colors.blue.shade200,
-                      actions: [
-                        IconButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return StatefulBuilder(
-                                        builder: (context, setState) {
-                                          return Consumer<ProductListProvider>(
-                                              builder: (context, value, child) {
-                                                return Column(children: [
+      return StatefulWrapper(
+          onInit: () => Future.delayed(const Duration(milliseconds: 100),
+              () => productListPvr.removeDuplicateBySize(productArrayList)),
+          child: Scaffold(
+              appBar: AppBar(backgroundColor: Colors.blue.shade200, actions: [
+                IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return StatefulBuilder(
+                                builder: (context, setState) {
+                              return Consumer<ProductListProvider>(
+                                  builder: (context, value, child) {
+                                return Column(children: [
+                                  Expanded(
+                                      child: Row(children: [
+                                    Column(children: [
+                                      CommonRowLayout(
+                                          onTap: () => value.onPriceTap(),
+                                          text: value.ll[0]),
+                                      CommonRowLayout(
+                                          onTap: () => value.onColorTap(),
+                                          text: value.ll[1]),
+                                      CommonRowLayout(
+                                          onTap: () => value.onSizeTap(),
+                                          text: value.ll[2]),
+                                    ]),
+                                    Column(children: [
+                                      value.isSelected == 0
+                                          ? StatefulBuilder(
+                                              builder: (context, setState) {
+                                              return RangeSliderLayout(
+                                                  productListPvr
+                                                      .currentRangeValues,
+                                                  productListPvr);
+                                            })
+                                          : value.isSelected == 1
+                                              ? Expanded(
+                                                  child: Column(children: [
+                                                  Row(children: [
+                                                    const SizedBox(width: 60),
+                                                    const Text("Select All"),
+                                                    const SizedBox(width: 100),
+                                                    Container(
+                                                        margin: const EdgeInsets.all(
+                                                            10),
+                                                        height: 20,
+                                                        width: 20,
+                                                        decoration: ShapeDecoration(
+                                                            color: productListPvr.isSelectedAllColor == true
+                                                                ? const Color(
+                                                                    0xff5465FF)
+                                                                : Colors.white,
+                                                            shape: SmoothRectangleBorder(
+                                                                side: BorderSide(
+                                                                    color: productListPvr.isSelectedAllColor == true
+                                                                        ? Colors
+                                                                            .transparent
+                                                                        : const Color(
+                                                                            0xffE5E8EA)),
+                                                                borderRadius: const SmoothBorderRadius.all(SmoothRadius(
+                                                                    cornerRadius:
+                                                                        5,
+                                                                    cornerSmoothing:
+                                                                        1)))),
+                                                        child: productListPvr.isSelectedAllColor == true
+                                                            ? SvgPicture.asset("assets/svg/tick.svg",
+                                                                fit: BoxFit.scaleDown,
+                                                                height: 10,
+                                                                width: 10)
+                                                            : null)
+                                                  ]).inkWell(context,
+                                                      onTap: () => value
+                                                          .selectAllColor()),
                                                   Expanded(
-                                                      child: Row(children: [
-                                                        Column(children: [
-                                                          Row(children: [
-                                                            InkWell(
-                                                                onTap: () =>
-                                                                    value
-                                                                        .onPriceTap(),
-                                                                child: Container(
-                                                                    margin:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        10),
-                                                                    height: 40,
-                                                                    width: 120,
-                                                                    alignment: Alignment
-                                                                        .center,
-                                                                    decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                          20),
-                                                                      color: Colors
-                                                                          .blue
-                                                                          .shade200,
-                                                                    ),
-                                                                    child: Text(
-                                                                        value
-                                                                            .ll[0])))
-                                                          ]),
-                                                          Row(children: [
-                                                            InkWell(
-                                                                onTap: () =>
-                                                                    value
-                                                                        .onColorTap(),
-                                                                child: Container(
-                                                                    margin:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        10),
-                                                                    height: 40,
-                                                                    width: 120,
-                                                                    alignment: Alignment
-                                                                        .center,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .blue
-                                                                            .shade200,
-                                                                        borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                            20)),
-                                                                    child: Text(
-                                                                        value
-                                                                            .ll[1])))
-                                                          ]),
-                                                          Row(children: [
-                                                            InkWell(
-                                                                onTap: () =>
-                                                                    value
-                                                                        .onSizeTap(),
-                                                                child: Container(
-                                                                    margin:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        10),
-                                                                    height: 40,
-                                                                    width: 120,
-                                                                    alignment: Alignment
-                                                                        .center,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .blue
-                                                                            .shade200,
-                                                                        borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                            20)),
-                                                                    child: Text(
-                                                                        value
-                                                                            .ll[2])))
-                                                          ])
-                                                        ]),
-                                                        Column(children: [
-                                                          value.isSelected == 0
-                                                              ? StatefulBuilder(
-                                                              builder: (context,
-                                                                  setState) {
-                                                                return Container(
-                                                                    alignment: Alignment
-                                                                        .center,
-                                                                    color: Colors
-                                                                        .blue
-                                                                        .shade50,
-                                                                    height: 100,
-                                                                    width: 270,
-                                                                    child: Column(
-                                                                        crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                        mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                        children: [
-                                                                          RangeSlider(
-                                                                              activeColor:
-                                                                              Colors
-                                                                                  .black,
-                                                                              values: productListPvr
-                                                                                  .currentRangeValues,
-                                                                              labels: RangeLabels(
-                                                                                productListPvr
-                                                                                    .currentRangeValues
-                                                                                    .start
-                                                                                    .toStringAsFixed(
-                                                                                    2),
-                                                                                productListPvr
-                                                                                    .currentRangeValues
-                                                                                    .end
-                                                                                    .toStringAsFixed(
-                                                                                    2),
-                                                                              ),
-                                                                              onChanged: (
-                                                                                  val) {
-                                                                                setState(() {
-                                                                                  productListPvr
-                                                                                      .currentRangeValues =
-                                                                                      val;
-                                                                                });
-                                                                              },
-                                                                              min: 0,
-                                                                              // Adjust this value if needed
-                                                                              max: productListPvr
-                                                                                  .maxPrice),
-                                                                          Row(
-                                                                              mainAxisAlignment:
-                                                                              MainAxisAlignment
-                                                                                  .spaceBetween,
-                                                                              children: [
-                                                                                Text(
-                                                                                    "Start: ${productListPvr
-                                                                                        .currentRangeValues
-                                                                                        .start
-                                                                                        .toStringAsFixed(
-                                                                                        2)}")
-                                                                                    .padding(
-                                                                                    left: 10),
-                                                                                Text(
-                                                                                    "End: ${productListPvr
-                                                                                        .currentRangeValues
-                                                                                        .end
-                                                                                        .toStringAsFixed(
-                                                                                        2)}",
-                                                                                    textAlign:
-                                                                                    TextAlign
-                                                                                        .end)
-                                                                                    .padding(
-                                                                                    right: 10)
-                                                                              ]
-                                                                          )
-                                                                        ]));
-                                                              })
-                                                              : value
-                                                              .isSelected == 1
-                                                              ? Expanded(
-                                                            child: Column(
-                                                              children: [
-                                                                Row(
-                                                                    children: [
-                                                                      const SizedBox(
-                                                                          width: 60),
-                                                                      const Text(
-                                                                          "Select All"),
-                                                                      const SizedBox(
-                                                                          width: 100),
-                                                                      Container(
-                                                                        margin: const EdgeInsets
-                                                                            .all(
-                                                                            10),
-                                                                        height: 20,
-                                                                        width: 20,
-                                                                        decoration: ShapeDecoration(
-                                                                            color: productListPvr
-                                                                                .isSelectedAllColor ==
-                                                                                true
-                                                                                ? const Color(
-                                                                                0xff5465FF)
-                                                                                : Colors
-                                                                                .white,
-                                                                            shape: SmoothRectangleBorder(
-                                                                                side: BorderSide(
-                                                                                    color: productListPvr
-                                                                                        .isSelectedAllColor ==
-                                                                                        true
-                                                                                        ? Colors
-                                                                                        .transparent
-                                                                                        : const Color(
-                                                                                        0xffE5E8EA)),
-                                                                                borderRadius: const SmoothBorderRadius
-                                                                                    .all(
-                                                                                    SmoothRadius(
-                                                                                        cornerRadius:
-                                                                                        5,
-                                                                                        cornerSmoothing:
-                                                                                        1)))),
-                                                                        child: productListPvr
-                                                                            .isSelectedAllColor ==
-                                                                            true
-                                                                            ? SvgPicture
-                                                                            .asset(
-                                                                            "assets/svg/tick.svg",
-                                                                            fit: BoxFit
-                                                                                .scaleDown,
-                                                                            height: 10,
-                                                                            width: 10)
-                                                                            : null,
-                                                                      )
-                                                                    ]
-                                                                ).inkWell(
-                                                                  context,
-                                                                  onTap: () {
-                                                                    setState(() {
+                                                      child: SizedBox(
+                                                          height: 200,
+                                                          width: 270,
+                                                          child:
+                                                              ListView.builder(
+                                                                  itemCount:
                                                                       productListPvr
-                                                                          .isSelectedAllColor =
-                                                                      !productListPvr
-                                                                          .isSelectedAllColor;
-                                                                    });
-                                                                  },
-                                                                ),
-                                                                Expanded(
-                                                                    child: SizedBox(
-                                                                        height: 200,
-                                                                        width: 270,
-                                                                        child: ListView
-                                                                            .builder(
-                                                                            itemCount:
-                                                                            productListPvr
-                                                                                .colorList
-                                                                                .length,
-                                                                            itemBuilder:
-                                                                                (
-                                                                                context,
-                                                                                index) {
-                                                                              return ListTile(
-                                                                                  onTap: () =>
-                                                                                      productListPvr
-                                                                                          .onColorSelected(
-                                                                                          index),
-                                                                                  tileColor: Colors
-                                                                                      .blue
-                                                                                      .shade50,
-                                                                                  leading: Container(
-                                                                                      decoration: BoxDecoration(
-                                                                                          borderRadius:
-                                                                                          const BorderRadius
-                                                                                              .all(
-                                                                                              Radius
-                                                                                                  .circular(
-                                                                                                  20)),
-                                                                                          color: Color(
-                                                                                              int
-                                                                                                  .parse(
-                                                                                                  productListPvr
-                                                                                                      .colorList[index]
-                                                                                                      .substring(
-                                                                                                      1,
-                                                                                                      7),
-                                                                                                  radix: 16) +
-                                                                                                  0xFF000000),
-                                                                                          border:
-                                                                                          Border
-                                                                                              .all(
-                                                                                              color: Colors
-                                                                                                  .white)),
-                                                                                      height: 20,
-                                                                                      width: 30),
-                                                                                  title: Text(
-                                                                                      "${productListPvr
-                                                                                          .colorList[index]}"),
-                                                                                  trailing: Container(
-                                                                                    height: 20,
-                                                                                    width: 20,
-                                                                                    decoration: ShapeDecoration(
-                                                                                        color: productArrayList[index]
-                                                                                            .isColorSelected ==
-                                                                                            true
-                                                                                            ? const Color(
-                                                                                            0xff5465FF)
-                                                                                            : Colors
-                                                                                            .white,
-                                                                                        shape: SmoothRectangleBorder(
-                                                                                            side:
-                                                                                            BorderSide(
-                                                                                                color: productArrayList[index]
-                                                                                                    .isColorSelected ==
-                                                                                                    true
-                                                                                                    ? Colors
-                                                                                                    .transparent
-                                                                                                    : const Color(
-                                                                                                    0xffE5E8EA)),
-                                                                                            borderRadius: const SmoothBorderRadius
-                                                                                                .all(
-                                                                                                SmoothRadius(
-                                                                                                    cornerRadius: 5,
-                                                                                                    cornerSmoothing: 1)))),
-                                                                                    child: productArrayList[index]
-                                                                                        .isColorSelected ==
-                                                                                        true
-                                                                                        ? SvgPicture
-                                                                                        .asset(
-                                                                                        "assets/svg/tick.svg",
-                                                                                        fit: BoxFit
-                                                                                            .scaleDown,
-                                                                                        height:
-                                                                                        10,
-                                                                                        width:
-                                                                                        10)
-                                                                                        : null,
-                                                                                  ));
-                                                                            }))),
-                                                              ],
-                                                            ),
-                                                          )
-                                                              : Expanded(
-                                                              child: Column(
-                                                                children: [
-                                                                  Row(
-                                                                      children: [
-                                                                        const SizedBox(
-                                                                            width: 60),
-                                                                        const Text(
-                                                                            "Select All"),
-                                                                        const SizedBox(
-                                                                            width: 100),
-                                                                        Container(
-                                                                          margin: const EdgeInsets
-                                                                              .all(
-                                                                              10),
-                                                                          height: 20,
-                                                                          width: 20,
-                                                                          decoration: ShapeDecoration(
-                                                                              color: productListPvr
-                                                                                  .isSelectedAllSize ==
-                                                                                  true
-                                                                                  ? const Color(
-                                                                                  0xff5465FF)
-                                                                                  : Colors
-                                                                                  .white,
-                                                                              shape: SmoothRectangleBorder(
-                                                                                  side: BorderSide(
-                                                                                      color: productListPvr
-                                                                                          .isSelectedAllSize ==
-                                                                                          true
-                                                                                          ? Colors
-                                                                                          .transparent
-                                                                                          : const Color(
-                                                                                          0xffE5E8EA)),
-                                                                                  borderRadius: const SmoothBorderRadius
-                                                                                      .all(
-                                                                                      SmoothRadius(
-                                                                                          cornerRadius:
-                                                                                          5,
-                                                                                          cornerSmoothing:
-                                                                                          1)))),
-                                                                          child: productListPvr
-                                                                              .isSelectedAllSize ==
-                                                                              true
-                                                                              ? SvgPicture
-                                                                              .asset(
-                                                                              "assets/svg/tick.svg",
-                                                                              fit: BoxFit
-                                                                                  .scaleDown,
-                                                                              height: 10,
-                                                                              width: 10)
-                                                                              : null,
-                                                                        )
-                                                                      ]
-                                                                  ).inkWell(
-                                                                      context,
-                                                                      onTap: () {
-                                                                        setState(() {
+                                                                          .colorList
+                                                                          .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          index) {
+                                                                    return ColorListLayout(
+                                                                      colorList:
                                                                           productListPvr
-                                                                              .isSelectedAllSize =
-                                                                          !productListPvr
-                                                                              .isSelectedAllSize;
-                                                                        });
-                                                                      }),
-                                                                  Expanded(
-                                                                    child: SizedBox(
-                                                                        height: 200,
-                                                                        width: 270,
-                                                                        child: ListView
-                                                                            .builder(
-                                                                            itemCount:
-                                                                            productListPvr
-                                                                                .sizeList
-                                                                                .length,
-                                                                            itemBuilder:
-                                                                                (
-                                                                                context,
-                                                                                index) {
-                                                                              return ListTile(
-                                                                                  onTap: () =>
-                                                                                      productListPvr
-                                                                                          .onSizeSelected(
-                                                                                          index),
-                                                                                  title: Text(
-                                                                                      "${productListPvr
-                                                                                          .sizeList[index]}"),
-                                                                                  trailing: Container(
-                                                                                      height: 20,
-                                                                                      width: 20,
-                                                                                      decoration: ShapeDecoration(
-                                                                                          color: productArrayList[index]
-                                                                                              .isSizeSelected ==
-                                                                                              true
-                                                                                              ? const Color(
-                                                                                              0xff5465FF)
-                                                                                              : Colors
-                                                                                              .white,
-                                                                                          shape: SmoothRectangleBorder(
-                                                                                              side:
-                                                                                              BorderSide(
-                                                                                                  color: productArrayList[index]
-                                                                                                      .isSizeSelected ==
-                                                                                                      true
-                                                                                                      ? Colors
-                                                                                                      .transparent
-                                                                                                      : const Color(
-                                                                                                      0xffE5E8EA)),
-                                                                                              borderRadius: const SmoothBorderRadius
-                                                                                                  .all(
-                                                                                                  SmoothRadius(
-                                                                                                      cornerRadius: 5,
-                                                                                                      cornerSmoothing: 1)))),
-                                                                                      child: productArrayList[index]
-                                                                                          .isSizeSelected ==
-                                                                                          true
-                                                                                          ? SvgPicture
-                                                                                          .asset(
-                                                                                          "assets/svg/tick.svg",
-                                                                                          fit: BoxFit
-                                                                                              .scaleDown,
-                                                                                          height: 10,
-                                                                                          width: 10)
-                                                                                          : null));
-                                                                            })),
-                                                                  ),
-                                                                ],
-                                                              ))
-                                                        ])
-                                                      ])),
-                                                  Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                      children: [
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 100,
-                                                            height: 50,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .blue
-                                                                    .shade200,
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    20)),
-                                                            child: const Text(
-                                                                "Clear All"))
-                                                            .inkWell(
-                                                            context, onTap: () {
-                                                          setState(() {
-                                                            productListPvr
-                                                                .currentRangeValues =
-                                                            const RangeValues(
-                                                                0, 100);
-                                                          });
-                                                        }),
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width: 100,
-                                                            height: 50,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .blue
-                                                                    .shade200,
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    20)),
-                                                            child:
-                                                            const Text(
-                                                                "Apply Filter"))
-                                                            .inkWell(
-                                                            context, onTap: () {
-                                                          log(
-                                                              "sizeSortList${productListPvr
-                                                                  .sizeSortList}");
-                                                          setState(() {
-                                                            final listColor = productListPvr
-                                                                .sizeSortList
-                                                                .contains(
-                                                                productListPvr
-                                                                    .sizeList);
-                                                            log(
-                                                                "listColor$listColor");
-
-                                                            if (productListPvr
-                                                                .sizeSortList
-                                                                .contains(
-                                                                productListPvr
-                                                                    .sizeList)) {
-                                                              productListPvr
-                                                                  .sizeSortList
-                                                                  .add(
-                                                                  productListPvr
-                                                                      .sizeSortList
-                                                                      .contains(
+                                                                              .colorList[index],
+                                                                      onColorSelected:
+                                                                          () =>
+                                                                              value.onColorSelected(productListPvr.colorList[index]),
+                                                                      isSelected: value
+                                                                          .selectedColor
+                                                                          .contains(
+                                                                              productListPvr.colorList[index]),
+                                                                    );
+                                                                  })))
+                                                ]))
+                                              : Expanded(
+                                                  child: Column(children: [
+                                                  Row(children: [
+                                                    const SizedBox(width: 60),
+                                                    const Text("Select All"),
+                                                    const SizedBox(width: 100),
+                                                    Container(
+                                                        margin: const EdgeInsets.all(
+                                                            10),
+                                                        height: 20,
+                                                        width: 20,
+                                                        decoration: ShapeDecoration(
+                                                            color: productListPvr.isSelectedAllSize == true
+                                                                ? const Color(
+                                                                    0xff5465FF)
+                                                                : Colors.white,
+                                                            shape: SmoothRectangleBorder(
+                                                                side: BorderSide(
+                                                                    color: productListPvr.isSelectedAllSize == true
+                                                                        ? Colors
+                                                                            .transparent
+                                                                        : const Color(
+                                                                            0xffE5E8EA)),
+                                                                borderRadius: const SmoothBorderRadius.all(SmoothRadius(
+                                                                    cornerRadius:
+                                                                        5,
+                                                                    cornerSmoothing:
+                                                                        1)))),
+                                                        child: productListPvr.isSelectedAllSize == true
+                                                            ? SvgPicture.asset("assets/svg/tick.svg",
+                                                                fit: BoxFit.scaleDown,
+                                                                height: 10,
+                                                                width: 10)
+                                                            : null)
+                                                  ]).inkWell(context,
+                                                      onTap: () => value
+                                                          .selectAllSize()),
+                                                  Expanded(
+                                                      child: SizedBox(
+                                                          height: 200,
+                                                          width: 270,
+                                                          child:
+                                                              ListView.builder(
+                                                                  itemCount:
                                                                       productListPvr
-                                                                          .sizeList));
-                                                            }
-                                                            setState(() {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            });
-                                                          });
-                                                        })
-                                                      ])
-                                                ]).backgroundColor(
-                                                    Colors.blue.shade50);
+                                                                          .sizeList
+                                                                          .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          index) {
+                                                                    return SizeLayout(
+                                                                        onTap: () =>
+                                                                            value.onSizeSelected(productListPvr.sizeList[
+                                                                                index]),
+                                                                        title: productListPvr.sizeList[
+                                                                            index],
+                                                                        isSelected: value
+                                                                            .selectedSize
+                                                                            .contains(productListPvr.sizeList[index]));
+                                                                  })))
+                                                ]))
+                                    ])
+                                  ])),
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        CommonContainer(
+                                            onTap: () {
+                                              productListPvr
+                                                      .currentRangeValues =
+                                                  RangeValues(
+                                                      0,
+                                                      productListPvr
+                                                          .currentRangeValues
+                                                          .end);
+                                            },
+                                            text: "Clear All"),
+                                        CommonContainer(
+                                            onTap: () {
+                                              setState(() {
+                                                // productListPvr.minPrice ==
+                                                //     productListPvr
+                                                //         .currentRangeValues
+                                                //         .start;
+                                                // productListPvr
+                                                //     .updateSelectedProducts();
+                                                // productListPvr.maxPrice =
+                                                //     productListPvr
+                                                //         .currentRangeValues.end;
+                                                // productListPvr
+                                                //     .updateSelectedProducts();
+                                                // productListPvr.filterProductsByColor();
+                                                Navigator.pop(context);
                                               });
-                                        });
-                                  });
-                            },
-                            icon: const Icon(Icons.filter_alt_outlined))
-                      ]),
-                  body: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: productListPvr.listView ? GridView.builder(
-                            itemCount: productArrayList.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisSpacing: 15,
-                              mainAxisSpacing: 15,
-                              crossAxisCount: 2,
-                            ),
-                            itemBuilder: (context, index) {
-                              return ProductGrid(productArrayList[index]);
-                            },
-                          ) : GridView.builder(
-                            itemCount: filterProductsByColor(selectedColor!).length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisSpacing: 15,
-                              mainAxisSpacing: 15,
-                              crossAxisCount: 2,
-                            ),
-                            itemBuilder: (context, index) {
-                              return ColorGrid(filterProductsByColor(selectedColor!)[index]);
-                            },
-                          ),
-                        )
-                      ]).padding(all: 20)));
-        });
+                                            },
+                                            text: "Apply Filter")
+                                      ])
+                                ]).backgroundColor(Colors.blue.shade50);
+                              });
+                            });
+                          });
+                    },
+                    icon: const Icon(Icons.filter_alt_outlined))
+              ]),
+              body: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: /*productListPvr.isSelectedAllSize == true
+                            ?*/
+                            /*CommonGridView(
+                                itemCount: productArrayList.length,
+                                itemBuilder: (context, index) {
+                                  return ProductGrid(productArrayList[index]);
+                                })*/
+                            /* : productListPvr.isSelectedAllColor == true
+                                ? CommonGridView(
+                                    itemCount:
+                                        productListPvr.selectedColor.length,
+                                    itemBuilder: (context, index) {
+                                      return Column(children: [
+                                        Text(
+                                            "${productListPvr.selectedColor[index]}")
+                                      ]);
+                                    })
+                                :*/
+                            CommonGridView(
+                                itemCount:
+                                    productListPvr.selectedProducts.length,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Card(
+                                            color: Colors.black,
+                                            elevation: 5,
+                                            child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Card(
+                                                      elevation: 5,
+                                                      child: Image.network(
+                                                          productListPvr
+                                                              .selectedProducts[
+                                                                  index]
+                                                              .imageUrl,
+                                                          height: 120,
+                                                          width: 200)),
+                                                  Text(
+                                                          productListPvr
+                                                              .selectedProducts[
+                                                                  index]
+                                                              .name,
+                                                          style: AppCss
+                                                              .philosopherBold14
+                                                              .textColor(
+                                                                  Colors.white),
+                                                          overflow: TextOverflow
+                                                              .ellipsis)
+                                                      .padding(all: 5),
+                                                  Text(
+                                                      '₹${productListPvr.selectedProducts[index].price}',
+                                                      style: AppCss
+                                                          .philosopherBold14
+                                                          .textColor(
+                                                              Colors.white))
+                                                ]))
+                                      ]);
+                                }),
+
+
+                    )
+                  ]).padding(all: 20)));
+    });
   }
 }
