@@ -22,7 +22,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
           appBar: AppBar(title: Text(textCommon.contactDashboard), actions: [
             IconButton(
                 icon: const Icon(Icons.logout),
-                onPressed: () => value.logOutButton(context)),
+                onPressed: () => value.logOutButton(context))
           ]),
           body: ListView.builder(
               itemCount: value.contacts.length,

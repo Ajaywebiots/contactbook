@@ -21,35 +21,32 @@ class ProductListProvider extends ChangeNotifier {
   }
 
   void filterProductsByColor() {
-    String? selectedColor;
-    String? imageUrl;
-    String? selectedName;
-    String? selectSize;
-    int? selectedPrice;
-    allFilterProduct.clear();
-    for (Product product in productArrayList) {
-      if (product.color.contains(selectedColor) ||
-          product.imageUrl.contains(imageUrl!) ||
-          product.price.toString().contains(selectedPrice.toString()) ||
-          product.name.contains(selectedName!) ||
-          product.size.contains(selectSize)) {
-        allFilterProduct.add(product);
-        log("allFilterProduct$allFilterProduct");
+    log("selectedColor : $selectedColor");
+    for (var color in selectedColor) {
+      for (Product product in productArrayList) {
+        if (product.color.contains(color)) {
+          if (!selectedProducts.contains(product)) {
+            selectedProducts.add(product);
+          }
+        }
       }
     }
+    notifyListeners();
   }
 
-  // void filterProduct() {
-  //   String? selected;
-  //   allFilterProduct.clear();
-  //   for (var color in colorList) {
-  //     if (color.contains(selected)) {
-  //       allFilterProduct.add(selected);
-  //       // log("allFilterProduct${colorList[0]}");
-  //       log("allFilterProduct${allFilterProduct[0]}");
-  //     }
-  //   }
-  // }
+  void filterProductsBySize() {
+    log("selectedColor : $selectedColor");
+    for (var color in selectedSize) {
+      for (Product product in productArrayList) {
+        if (product.size.contains(color)) {
+          if (!selectedProducts.contains(product)) {
+            selectedProducts.add(product);
+          }
+        }
+      }
+    }
+    notifyListeners();
+  }
 
   removeDuplicateBySize(List<Product> productList) {
     notifyListeners();
@@ -74,18 +71,72 @@ class ProductListProvider extends ChangeNotifier {
     log("colorList :: $colorList");
     onLoopChange();
     notifyListeners();
-    filterProductsByColor();
   }
 
   void updateSelectedProducts() {
     selectedProducts.clear();
-    notifyListeners();
+
     for (Product product in productArrayList) {
-      if (product.price >= minPrice && product.price <= maxPrice) {
+      final priceInRange = product.price >= minPrice && product.price <= maxPrice;
+      final colorMatch = selectedColor.isEmpty || selectedColor.contains(product.color);
+      final sizeMatch = selectedSize.isEmpty || selectedSize.contains(product.size);
+
+      if (priceInRange && colorMatch && sizeMatch) {
         selectedProducts.add(product);
-        // log("selectedProducts:::::::::::::::$selectedProducts");
+        log("selectedProducts$selectedProducts");
       }
     }
+
+    notifyListeners();
+  }
+
+  // void updateSelectedProducts() {
+  //   log("RANGE : $minPrice // $maxPrice");
+  //   for (Product product in productArrayList) {
+  //     log("RANGE : ${product.price >= minPrice && product.price <= maxPrice}");
+  //     log("RANGE : ${product.price}");
+  //     if (product.price >= minPrice && product.price <= maxPrice) {
+  //       if (!selectedProducts.contains(product)) {
+  //         selectedProducts.add(product);
+  //       }
+  //       // log("selectedProducts:::::::::::::::$selectedProducts");
+  //     }
+  //   }
+  //   notifyListeners();
+  // }
+
+
+  onApplyChange(context){
+    selectedProducts = [];
+    minPrice = currentRangeValues.start;
+    maxPrice = currentRangeValues.end;
+    filterProductsBySize();
+    updateSelectedProducts();
+    filterProductsByColor();
+    Navigator.pop(context);
+  }
+
+  onClearAll(context){
+    selectedProducts = [];
+    minPrice = currentRangeValues.start;
+    maxPrice = currentRangeValues.end;
+    selectedColor = [];
+    selectedSize = [];
+    updateSelectedProducts();
+    Navigator.pop(context);
+
+    //   setState(() {
+    //     productListPvr
+    //         .selectedProducts = [];
+    //     productListPvr.selectedColor =
+    //         [];
+    //     productListPvr.selectedSize =
+    //         [];
+    //     productListPvr
+    //         .removeDuplicateBySize(
+    //             productArrayList);
+    //   });
+    // }
   }
 
   onLoopChange() {
