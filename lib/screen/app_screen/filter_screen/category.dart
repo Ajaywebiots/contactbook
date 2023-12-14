@@ -1,3 +1,4 @@
+import 'package:contactbook/config.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/widgets/text_commom_widget1.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,12 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PopUpListProvider>(builder: (context, value, child) {
       return Column(children: [
-        const Row(children: [Text("Category list")])
+        Row(children: [Text(textAssets.categoryList)])
             .padding(horizontal: 15, vertical: 20),
         TextFieldCommon1(
-                hintText: "Search here",
+                hintText: textAssets.searchHere,
                 prefixIcon:
-                    SvgPicture.asset("assets/svg/search.svg").padding(all: 10))
+                    SvgPicture.asset(svgAssets.search).padding(all: 10))
             .padding(horizontal: 15, vertical: 10),
         Expanded(
             child: ListView.builder(

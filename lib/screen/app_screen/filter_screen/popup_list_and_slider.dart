@@ -1,10 +1,12 @@
 import 'package:contactbook/provider/popup_list_provider.dart';
 import 'package:contactbook/screen/app_screen/filter_screen/category.dart';
 import 'package:contactbook/screen/app_screen/filter_screen/distance.dart';
+import 'package:contactbook/screen/app_screen/filter_screen/layouts/Common_popup_inkwell.dart';
 import 'package:contactbook/screen/app_screen/filter_screen/price_&_rate.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'layouts/common_container_button_layout.dart';
 
 class PopUpList extends StatefulWidget {
   const PopUpList({super.key});
@@ -46,57 +48,46 @@ class _PopUpListState extends State<PopUpList> {
                     borderRadius: BorderRadius.all(Radius.circular(45))),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  InkWell(
-                      onTap: () => value.selectedCategory0(),
-                      child: Container(
-                          height: height * 0.1,
-                          width: width * 0.28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: value.isSelected == 0
-                                  ? const Color(0xff5465FF)
-                                  : const Color(0xffF5F6F7),
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(45),
-                                  bottomLeft: Radius.circular(45))),
-                          child: Text("Category",
-                              style: TextStyle(
-                                  color: value.isSelected == 0
-                                      ? Colors.white
-                                      : Colors.black)))),
-                  InkWell(
-                      onTap: () => value.selectedCategory1(),
-                      child: Container(
-                          height: height * 0.1,
-                          width: width * 0.28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: value.isSelected == 1
-                                  ? const Color(0xff5465FF)
-                                  : const Color(0xffF5F6F7)),
-                          child: Text("Price & rate",
-                              style: TextStyle(
-                                  color: value.isSelected == 1
-                                      ? Colors.white
-                                      : Colors.black)))),
-                  InkWell(
-                      onTap: () => value.selectedCategory2(),
-                      child: Container(
-                          height: height * 0.1,
-                          width: width * 0.28,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: value.isSelected == 2
-                                  ? const Color(0xff5465FF)
-                                  : const Color(0xffF5F6F7),
-                              borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(45),
-                                  bottomRight: Radius.circular(45))),
-                          child: Text("Distance",
-                              style: TextStyle(
-                                  color: value.isSelected == 2
-                                      ? Colors.white
-                                      : Colors.black))))
+                  // Wrap(
+                  //     children: List.generate(value.filterList.length, (index) {
+                  //   return CommonPopInkwell(
+                  //       onTap: () => value.selectedCategory(index),
+                  //       index: value.isSelected,
+                  //       text: value.filterList[index],
+                  //       selectedIndex: 0);
+                  // }))
+
+                  ...value.filterList
+                      .asMap()
+                      .entries
+                      .map((e) => CommonPopInkwell(
+                          onTap: () => value.selectedCategory(e.key),
+                          index: e.key,
+                          text: e.value,
+                          selectedIndex: value.isSelected))
+                      .toList(),
+
+                  // CommonPopInkwell(
+                  //     onTap: () => value.selectedCategory0(),
+                  //     index: value.isSelected,
+                  //     text: "Category",
+                  //     selectedIndex: 0,
+                  //     borderRadius: const BorderRadius.only(
+                  //         topLeft: Radius.circular(45),
+                  //         bottomLeft: Radius.circular(45))),
+                  // CommonPopInkwell(
+                  //     onTap: () => value.selectedCategory1(),
+                  //     index: value.isSelected,
+                  //     selectedIndex: 1,
+                  //     text: "Price & rate"),
+                  // CommonPopInkwell(
+                  //     onTap: () => value.selectedCategory1(),
+                  //     index: value.isSelected,
+                  //     selectedIndex: 2,
+                  //     text: "Distance",
+                  //     borderRadius: const BorderRadius.only(
+                  //         topRight: Radius.circular(45),
+                  //         bottomRight: Radius.circular(45))),
                 ])),
             Expanded(
                 child: value.isSelected == 0
@@ -104,30 +95,16 @@ class _PopUpListState extends State<PopUpList> {
                     : value.isSelected == 1
                         ? const PriceRate()
                         : const Distance()),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xff5465FF)),
-                      borderRadius: const BorderRadius.all(Radius.circular(8))),
-                  height: height * 0.06,
-                  alignment: Alignment.center,
-                  width: width * 0.4,
-                  child: const Text("Clear all",
-                      style:
-                          TextStyle(color: Color(0xff5465FF), fontSize: 16))),
-              Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  decoration: BoxDecoration(
-                      color: const Color(0xff5465FF),
-                      border: Border.all(color: const Color(0xff5465FF)),
-                      borderRadius: const BorderRadius.all(Radius.circular(8))),
-                  height: height * 0.06,
-                  alignment: Alignment.center,
-                  width: width * 0.4,
-                  child: const Text("Apply",
-                      style: TextStyle(color: Colors.white, fontSize: 16)))
-            ])
+            const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CommonContainerButton(
+                      text: 'Clear All', textColor: Color(0xff5465FF)),
+                  CommonContainerButton(
+                      text: 'Apply',
+                      textColor: Colors.white,
+                      color: Color(0xff5465FF))
+                ])
           ]));
     });
   }

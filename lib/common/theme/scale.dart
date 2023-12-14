@@ -1,6 +1,6 @@
 part of 'app_css.dart';
 
-class Durations {
+class DurationsClass {
   static const Duration ms150 = Duration(milliseconds: 150);
   static const Duration s2 = Duration(seconds: 2);
   static const Duration s1 = Duration(seconds: 1);
@@ -47,6 +47,7 @@ class Insets {
   static const double i80 = 80 * scale;
   static const double i90 = 90 * scale;
   static const double i100 = 100 * scale;
+  static const double i108 = 108 * scale;
   static const double i120 = 120 * scale;
   static const double i130 = 130 * scale;
   static const double i250 = 250 * scale;
@@ -95,6 +96,7 @@ class FontSizes {
   static const double f30 = 30.0 * scale;
   static const double f34 = 34.0 * scale;
   static const double f35 = 35.0 * scale;
+  static const double f36 = 36.0 * scale;
   static const double f50 = 50.0 * scale;
   static const double f60 = 60.0 * scale;
   static const double f65 = 65.0 * scale;

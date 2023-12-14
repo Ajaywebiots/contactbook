@@ -24,11 +24,11 @@ class _NumberLoginState extends State<NumberLogin> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                     const SizedBox(height: 25),
-                    Text(textCommon.phoneVerification,
+                    Text(textAssets.phoneVerification,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
-                    Text(textCommon.weNeedToRegister,
+                    Text(textAssets.weNeedToRegister,
                         style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center),
                     const SizedBox(height: 30),
@@ -51,7 +51,7 @@ class _NumberLoginState extends State<NumberLogin> {
                                       decoration: InputDecoration(
                                           counterText: "",
                                           border: InputBorder.none,
-                                          hintText: textCommon.phone)))
+                                          hintText: textAssets.phone)))
                             ])),
                     const SizedBox(height: 20),
                     SizedBox(
@@ -64,7 +64,7 @@ class _NumberLoginState extends State<NumberLogin> {
                                     borderRadius: BorderRadius.circular(10))),
                             onPressed: () =>
                                 numberLoginPvr.sendTheCode(context),
-                            child: Text(textCommon.sendTheCode)))
+                            child: Text(textAssets.sendTheCode)))
                   ]))));
     });
   }

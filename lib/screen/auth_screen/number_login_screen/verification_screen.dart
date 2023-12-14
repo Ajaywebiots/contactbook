@@ -35,7 +35,7 @@ class _MyVerifyState extends State<MyVerify> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                     const SizedBox(height: 25),
-                    Text(textCommon.phoneVerification,
+                    Text(textAssets.phoneVerification,
                         style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
@@ -50,7 +50,7 @@ class _MyVerifyState extends State<MyVerify> {
                             style: const TextStyle(fontSize: 30),
                             decoration: InputDecoration(
                                 counterText: "",
-                                hintText: textCommon.dash,
+                                hintText: textAssets.dash,
                                 hintStyle: const TextStyle(fontSize: 30)))),
                     const SizedBox(height: 30),
                     const SizedBox(height: 20),
@@ -64,7 +64,7 @@ class _MyVerifyState extends State<MyVerify> {
                                     borderRadius: BorderRadius.circular(10))),
                             onPressed: () =>
                                 verificationPvr.verifyPhoneNum(context, widget),
-                            child: Text(textCommon.verifyPhoneNum)))
+                            child: Text(textAssets.verifyPhoneNum)))
                   ]))));
     });
   }

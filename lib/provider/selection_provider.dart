@@ -10,6 +10,8 @@ import 'package:contactbook/screen/auth_screen/onboarding_screen/onboarding_scre
 import 'package:contactbook/screen/auth_screen/onboarding_screen/onboarding_screen2.dart';
 import 'package:flutter/material.dart';
 
+import '../screen/app_screen/payment_gateway_screen/payment_gateway_screen.dart';
+
 class SelectionProvider extends ChangeNotifier {
   List screen = [
     const DashBoardScreen(),
@@ -21,7 +23,8 @@ class SelectionProvider extends ChangeNotifier {
     const DateTimePicker(),
     const AnimationDemo(),
     const NumberLogin(),
-    const ProductListScreen()
+    const ProductListScreen(),
+    const PaymentGatewayScreen()
   ];
   List screenName = [
     "Import Contact From Phone",
@@ -33,7 +36,8 @@ class SelectionProvider extends ChangeNotifier {
     "Date & Time Picker",
     "Animation demo",
     "FireBase Mobile Number Login",
-    "Product Short List"
+    "Product Short List",
+    "Payment Gateway Screen",
   ];
 
   heightMQ(context) {

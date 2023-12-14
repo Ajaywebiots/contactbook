@@ -142,7 +142,7 @@ class _LocalContactState extends State<LocalContact> {
                                 topLeft: Radius.circular(40.0),
                                 topRight: Radius.circular(40.0))),
                         child: localContactCtrl.searchData.isEmpty
-                            ? Center(child: Text(textCommon.noDataFound))
+                            ? Center(child: Text(textAssets.noDataFound))
                             : ListView.builder(
                                 itemCount: localContactCtrl.isSearch
                                     ? localContactCtrl.searchData.length
@@ -159,13 +159,13 @@ class _LocalContactState extends State<LocalContact> {
                                                     context: context,
                                                     builder: (context) {
                                                       return AlertDialog(
-                                                          title: Text(textCommon
+                                                          title: Text(textAssets
                                                               .changeProfile),
                                                           content: Column(
                                                               children: [
-                                                                Text(textCommon
+                                                                Text(textAssets
                                                                     .chooseFromGallery),
-                                                                Text(textCommon
+                                                                Text(textAssets
                                                                     .cancel)
                                                               ]));
                                                     });

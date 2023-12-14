@@ -1,4 +1,4 @@
-class TextCommon{
+class TextAssets{
 
   // date & time Page
   final String addDate = "Add date & time";
@@ -29,6 +29,11 @@ class TextCommon{
   //verification screen
   final String dash = "-  -  -  -  -  -";
   final String verifyPhoneNum = "Verify Phone Number";
+  final String distanceLocation = "Distance location";
+  final String nearByLocation = "Near by location";
+  final String distance = "Distance";
+  final String categoryList = "Category list";
+  final String searchHere = "Search here";
 
 
 

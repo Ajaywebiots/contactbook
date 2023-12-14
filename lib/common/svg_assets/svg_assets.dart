@@ -5,4 +5,9 @@ class SvgAssets{
   final String rightArrow = "assets/svg/rightArrow.svg";
   final String dropDown = "assets/svg/dropDown.svg";
   final String colonIcon = "assets/svg/colonIcon.svg";
+  final String userSlider = "assets/images/userSlider.png";
+  final String global = "assets/svg/global.svg";
+  final String map = "assets/svg/map.svg";
+  final String search = "assets/svg/search.svg";
+
 }

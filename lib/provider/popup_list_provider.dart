@@ -14,31 +14,14 @@ class PopUpListProvider extends ChangeNotifier {
     return width;
   }
 
-  selectedCategory0(){
-    if (isSelected == 0) {
-      isSelected = 1;
-    } else {
-      isSelected = 0;
-    }
-    notifyListeners();
-  }
-  selectedCategory1(){
-    if (isSelected == 1) {
-      isSelected = 2;
-    } else {
-      isSelected = 1;
-    }
-    notifyListeners();
-  }
-  selectedCategory2(){
-    if (isSelected == 2) {
-      isSelected = 0;
-    } else {
-      isSelected = 2;
-    }
+  selectedCategory(index){
+    isSelected = index;
     notifyListeners();
   }
 
+
+
+  List filterList = ["Category","Distance","Price & Rate"];
 
   List categoryList = [
     {

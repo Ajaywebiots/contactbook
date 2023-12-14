@@ -1,16 +1,16 @@
-import 'dart:developer';
 import 'dart:ui';
 import 'package:contactbook/extensions/spacing.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/popup_list_provider.dart';
+import 'package:contactbook/screen/app_screen/filter_screen/layouts/sfslider_theme_layout.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-import 'distance_custom_shape/custom_shape.dart';
+import 'package:contactbook/config.dart';
+
+import 'layouts/distance_custom_shape/custom_shape.dart';
 
 class Distance extends StatefulWidget {
   const Distance({super.key});
@@ -28,14 +28,13 @@ class _DistanceState extends State<Distance> {
             Future.delayed(const Duration(milliseconds: 150))
                 .then((value) async {
               FrameInfo fi =
-                  await value.loadImage("assets/images/userSlider.png");
+                  await value.loadImage(svgAssets.userSlider);
               value.customImage = fi.image;
-
               value.notifyListeners();
             });
           },
           child: Column(children: [
-            const Row(children: [Text("Distance")])
+            Row(children: [Text(textAssets.distance)])
                 .padding(horizontal: 15, vertical: 20),
             Card(
                 elevation: 2,
@@ -45,25 +44,18 @@ class _DistanceState extends State<Distance> {
                 child: ListTile(
                     trailing: InkWell(
                         onTap: () => value.onChange(),
-                        child: value.isSelect == false
-                            ? Container(
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: const Color(0xff5465FF)
-                                        .withOpacity(0.18)),
-                                width: 22,
-                                height: 22,
-                                child: const Icon(Icons.circle,
-                                    color: Color(0xff5465FF), size: 13))
-                            : Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: const Color(0xffE5E8EA)),
-                                    shape: BoxShape.circle),
-                                height: 22,
-                                width: 22)),
-                    leading: SvgPicture.asset("assets/svg/map.svg"),
-                    title: const Text("Near by location"))),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: value.isSelect == false
+                                    ? const Color(0xff5465FF).withOpacity(0.18)
+                                    : const Color(0xffE5E8EA)),
+                            width: 22,
+                            height: 22,
+                            child: const Icon(Icons.circle,
+                                color: Color(0xff5465FF), size: 13))),
+                    leading: SvgPicture.asset(svgAssets.map),
+                    title: Text(textAssets.nearByLocation))),
             SizedBox(
                 height: 124,
                 child: Card(
@@ -79,9 +71,9 @@ class _DistanceState extends State<Distance> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(children: [
-                                  SvgPicture.asset("assets/svg/global.svg"),
+                                  SvgPicture.asset(svgAssets.global),
                                   const HSpace(30),
-                                  const Text("Distance location"),
+                                   Text(textAssets.distanceLocation),
                                 ]),
                                 InkWell(
                                     onTap: () => value.onChange1(),
@@ -110,64 +102,16 @@ class _DistanceState extends State<Distance> {
                               width: MediaQuery.of(context).size.width / 1,
                               child: FutureBuilder<FrameInfo>(
                                   future: value.loadImage(
-                                      "assets/images/userSlider.png"),
+                                      svgAssets.userSlider),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData &&
                                         snapshot.data != null) {
-                                      return SfSliderTheme(
-                                          data: SfSliderThemeData(
-                                              inactiveTrackColor:
-                                                  const Color(0xffE5E8EA),
-                                              activeLabelStyle: const TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.black),
-                                              inactiveLabelStyle:
-                                                  const TextStyle(
-                                                      fontFamily:
-                                                          "PoppinsRegular",
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Colors.black),
-                                              activeTrackColor: Colors.black),
-                                          child: SfSlider(
-                                            activeColor: Colors.black,
-                                            min: 0.0,
-                                            max: 30.0,
-                                            interval: 5,
-                                            showDividers: true,
-                                            dividerShape:
-                                                const SfDividerShape(),
-                                            showLabels: true,
-                                            showTicks: true,
-                                            labelFormatterCallback:
-                                                (dynamic actualValue,
-                                                    String formattedText) {
-                                              switch (actualValue) {
-                                                case 0:
-                                                  return '';
-                                                case 5:
-                                                  return '05\nKm';
-                                                case 10:
-                                                  return '10\nKm';
-                                                case 15:
-                                                  return '15\nKm';
-                                                case 20:
-                                                  return '20\nKm';
-                                                case 25:
-                                                  return '25\nKm';
-                                                case 30:
-                                                  return '30\nKm';
-                                              }
-                                              return actualValue.toString();
-                                            },
-                                            thumbShape: CustomThumbShape(
-                                                snapshot.data!.image),
-                                            value: value.slider,
-                                            onChanged: (dynamic newValue) =>
-                                                value.slidingValue(newValue),
-                                          ));
+                                      return SFSliderThemeLayout(
+                                          thumbShape: CustomThumbShape(
+                                              snapshot.data!.image),
+                                          value: value.slider,
+                                          onChanged: (dynamic newValue) =>
+                                              value.slidingValue(newValue));
                                     } else {
                                       return Container();
                                     }

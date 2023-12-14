@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:contactbook/config.dart';
-import 'package:contactbook/screen/app_screen/date_&_time/layouts/flutter_time_picker_spinner.dart';
 import 'package:contactbook/screen/app_screen/date_&_time/layouts/rps_custom_painter.dart';
+import 'package:contactbook/widgets/common_decrement_button.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +29,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
   Widget build(BuildContext context) {
     return Consumer<DateTimeProvider>(builder: (context1, dateTimePvr, child) {
       return StatefulWrapper(
-          onInit: () => Future.delayed(Durations.ms150)
+          onInit: () => Future.delayed(DurationsClass.ms150)
               .then((value) => dateTimePvr.onInit()),
           child: Container(
               alignment: Alignment.center,
@@ -47,7 +45,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               child: SingleChildScrollView(
                   child: Column(children: [
                 ListTile(
-                    title: Text(textCommon.selectDate,
+                    title: Text(textAssets.selectDate,
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     trailing: IconButton(
                         onPressed: () => Navigator.pop(context),
@@ -159,7 +157,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                                 color: dateTimePvr.appColor.primaryColor,
                                 shape: BoxShape.circle)))),
                 ListTile(
-                    leading: Text(textCommon.time,
+                    leading: Text(textAssets.time,
                         style: const TextStyle(fontWeight: FontWeight.bold))),
                 // Positioned(
                 //   child: TimePickerSpinner(
@@ -271,7 +269,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                   //         dateTime = time;
                   //       });
                   //     }),
-                  /* Positioned(
+                 /*Positioned(
                     left: 0,
                     child: CommonDecrementInkWell(
                         onTap: () {}, assetPath: svgAssets.decrement),
@@ -292,7 +290,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                             color: dateTimePvr.appColor.primaryColor,
                             borderRadius: SmoothBorderRadius(
                                 cornerRadius: 8, cornerSmoothing: 1)),
-                        child: Text(textCommon.addDate,
+                        child: Text(textAssets.addDate,
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,

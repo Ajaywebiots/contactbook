@@ -1,19 +1,12 @@
 import 'package:contactbook/screen/app_screen/product_list_screen/layouts/filter_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'layouts/range_slider_layout.dart';
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/product_list_provider/product_list_provider.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/product_array_model.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/size_list_layout.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_row_layout.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/color_list_layout.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/layouts/product_grid_layout.dart';
 import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_gridview_layout.dart';
-import 'package:contactbook/screen/app_screen/product_list_screen/layouts/common_container_layout.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});

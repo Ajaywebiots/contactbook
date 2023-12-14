@@ -77,9 +77,12 @@ class ProductListProvider extends ChangeNotifier {
     selectedProducts.clear();
 
     for (Product product in productArrayList) {
-      final priceInRange = product.price >= minPrice && product.price <= maxPrice;
-      final colorMatch = selectedColor.isEmpty || selectedColor.contains(product.color);
-      final sizeMatch = selectedSize.isEmpty || selectedSize.contains(product.size);
+      final priceInRange =
+          product.price >= minPrice && product.price <= maxPrice;
+      final colorMatch =
+          selectedColor.isEmpty || selectedColor.contains(product.color);
+      final sizeMatch =
+          selectedSize.isEmpty || selectedSize.contains(product.size);
 
       if (priceInRange && colorMatch && sizeMatch) {
         selectedProducts.add(product);
@@ -105,8 +108,7 @@ class ProductListProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-
-  onApplyChange(context){
+  onApplyChange(context) {
     selectedProducts = [];
     minPrice = currentRangeValues.start;
     maxPrice = currentRangeValues.end;
@@ -116,7 +118,7 @@ class ProductListProvider extends ChangeNotifier {
     Navigator.pop(context);
   }
 
-  onClearAll(context){
+  onClearAll(context) {
     selectedProducts = [];
     minPrice = currentRangeValues.start;
     maxPrice = currentRangeValues.end;

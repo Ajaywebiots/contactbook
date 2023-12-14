@@ -26,6 +26,9 @@ class AppCss {
   static TextStyle get philosopherblack28 =>
       philosopher.black.size(FontSizes.f28);
 
+  static TextStyle get philosopherblack36 =>
+      philosopher.black.size(FontSizes.f36);
+
   static TextStyle get philosopherblack24 =>
       philosopher.black.size(FontSizes.f24);
 

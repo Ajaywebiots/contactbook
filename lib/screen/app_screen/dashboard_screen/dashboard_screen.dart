@@ -19,7 +19,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   Widget build(BuildContext context) {
     return Consumer<DashBoardController>(builder: (context, value, child) {
       return Scaffold(
-          appBar: AppBar(title: Text(textCommon.contactDashboard), actions: [
+          appBar: AppBar(title: Text(textAssets.contactDashboard), actions: [
             IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () => value.logOutButton(context))
@@ -31,7 +31,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                 return ListTile(
                     subtitle: Text(value.contacts[index].phones.isNotEmpty
                         ? value.contacts[index].phones[0].number
-                        : textCommon.noNumber),
+                        : textAssets.noNumber),
                     title: Text(contact.displayName));
               }));
     });
