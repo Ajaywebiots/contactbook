@@ -59,6 +59,9 @@ dependencies:
   device_info_plus:
   flutter_local_notifications:
   dio:
+  http:
+  flutter_stripe:
+
 
 dev_dependencies:
   flutter_test:

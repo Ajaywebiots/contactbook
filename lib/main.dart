@@ -1,5 +1,8 @@
+import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
+import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
 import 'package:contactbook/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:contactbook/selection_screen.dart';
@@ -27,6 +30,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await NotificationServices().initNotification();
+  Stripe.publishableKey = PaymentUtils.publishKey;
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => UserLogin()),
@@ -46,6 +50,8 @@ void main() async {
     ChangeNotifierProvider(create: (_) => NumberLoginProvider()),
     ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
     ChangeNotifierProvider(create: (_) => ProductListProvider()),
+    ChangeNotifierProvider(create: (_) => ThemeProvider()),
+    ChangeNotifierProvider(create: (_) => PaymentUtils()),
   ], child: const MyApp()));
 }
 

@@ -2,6 +2,20 @@ import 'dart:developer';
 import 'package:intl/intl.dart';
 
 class AppArray {
+  List paymentList = [
+    {'paymentImage': 'assets/images/instaMojo.png'},
+    {'paymentImage': 'assets/images/flutterWave.png'},
+    {'paymentImage': 'assets/images/paypal.png'},
+    {'paymentImage': 'assets/images/phonepe.png'},
+    {'paymentImage': 'assets/images/stripe.png'},
+  ];
+
+
+
+
+
+
+
   List monthList = [
     {"title": "January", "index": 1},
     {"title": "February", "index": 2},
