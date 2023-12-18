@@ -2,6 +2,7 @@ import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:contactbook/common/theme/app_color.dart';
 import 'package:contactbook/common/theme/app_css.dart';
@@ -14,17 +15,22 @@ class StripePaymentScreen extends StatefulWidget {
 }
 
 class _StripePaymentScreenState extends State<StripePaymentScreen> {
+  // bool subscriptionSuccessful = false;
+
+  PaymentIntent? paymentIntent;
+  bool isSubscribed = false;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<PaymentUtils>(builder: (context, paymentUtilsPvr, child) {
+    return Consumer2<PaymentUtils,NewProvider>(builder: (context, paymentUtilsPvr, newPvr, child) {
       return Scaffold(
-          backgroundColor: const Color(0xff141316),
+          backgroundColor: Colors.white,
           body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
                 padding: const EdgeInsets.all(20),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: AppColor().whiteColor,
+                    color: AppColor().blackColor,
                     borderRadius: const BorderRadius.all(Radius.circular(40))),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -90,8 +96,9 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                                                     : Colors.white),
                                             width: 20,
                                             height: 20)
-                                      ])).inkWell(context, onTap: () {
+                                      ])).inkWell(context, onTap: () async {
                                 paymentUtilsPvr.isPlanSelect = true;
+                                newPvr.createCustomer();
                                 setState(() {});
                               }),
                               Container(
@@ -176,7 +183,16 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                                           onTap: () => paymentUtilsPvr
                                               .stripeSinglePayment(context))
                                 ]))
-                    ]))
+                    ])),
+            Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                width: 50,
+                height: 50,
+                child: Text("OK"))
           ]).padding(horizontal: 20));
     });
   }

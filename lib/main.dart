@@ -52,6 +52,7 @@ void main() async {
     ChangeNotifierProvider(create: (_) => ProductListProvider()),
     ChangeNotifierProvider(create: (_) => ThemeProvider()),
     ChangeNotifierProvider(create: (_) => PaymentUtils()),
+    ChangeNotifierProvider(create: (_) => NewProvider()),
   ], child: const MyApp()));
 }
 
