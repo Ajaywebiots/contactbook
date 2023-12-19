@@ -101,10 +101,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           },
                                           controller: value.phoneTxt,
                                           keyboardType: TextInputType.number,
-                                          style: AppCss1.dmSansExtraBold16
+                                          style: appCss.dmDenseExtraBold16
                                               .textColor(Colors.black),
                                           decoration: InputDecoration(
-                                            hintStyle: AppCss1.dmSansExtraBold16
+                                            hintStyle: appCss.dmDenseExtraBold16
                                                 .textColor(
                                                     const Color(0xff767676)),
                                             counterText: "",

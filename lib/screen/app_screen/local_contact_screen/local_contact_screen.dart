@@ -142,7 +142,7 @@ class _LocalContactState extends State<LocalContact> {
                                 topLeft: Radius.circular(40.0),
                                 topRight: Radius.circular(40.0))),
                         child: localContactCtrl.searchData.isEmpty
-                            ? Center(child: Text(textAssets.noDataFound))
+                            ? Center(child: Text(appFonts.noDataFound))
                             : ListView.builder(
                                 itemCount: localContactCtrl.isSearch
                                     ? localContactCtrl.searchData.length
@@ -159,13 +159,13 @@ class _LocalContactState extends State<LocalContact> {
                                                     context: context,
                                                     builder: (context) {
                                                       return AlertDialog(
-                                                          title: Text(textAssets
+                                                          title: Text(appFonts
                                                               .changeProfile),
                                                           content: Column(
                                                               children: [
-                                                                Text(textAssets
+                                                                Text(appFonts
                                                                     .chooseFromGallery),
-                                                                Text(textAssets
+                                                                Text(appFonts
                                                                     .cancel)
                                                               ]));
                                                     });
@@ -247,8 +247,8 @@ class _LocalContactState extends State<LocalContact> {
                                             left: 20,
                                             bottom: 20),
                                         decoration: BoxDecoration(
-                                            color: bgColor,
-                                            border: Border.all(color: bgColor),
+                                            color: appColor(context).appTheme.primary,
+                                            border: Border.all(color: appColor(context).appTheme.primary),
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: const Text("save",

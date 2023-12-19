@@ -10,81 +10,69 @@ class AppTheme {
 
   //Theme Colors
   bool isDark;
-  Color txt;
   Color primary;
-  Color primaryLight;
-  Color secondary;
-  Color accentTxt;
-  Color bg1;
-  Color bgColor;
-  Color surface;
-  Color error;
-  Color transparentColor;
-
-  //Extra Colors
-  Color bgGray;
-  Color gray;
-  Color darkGray;
-  Color lightGray;
-  Color borderGray;
+  Color darkText;
+  Color lightText;
+  Color oneText;
+  Color twoText;
+  Color threeText;
+  Color whiteBg;
+  Color whiteContainer;
+  Color stroke;
+  Color fieldCardBg;
+  Color trans;
+  Color black;
+  Color rulesClr;
+  Color containerClr;
+  Color containerClr1;
+  Color shadowClr;
   Color green;
-  Color white;
+  Color online;
+  Color red;
+  Color phoneClr;
+  Color googleClr;
+  Color googleTxtClr;
+  Color fbClr;
+  Color emailClr;
   Color whiteColor;
-  Color blackText;
-  Color blackColor;
-  Color blackColor1;
-  Color black12Color;
-  Color textColor;
-  Color contentColor;
-  Color borderColor;
-  Color greenColor;
-  Color redColor;
-  Color darkContentColor;
-  Color ratingColor;
-  Color homeCategoryColor;
-  Color greyLight25;
-  Color switchThumb;
-  Color number;
-  Color dark;
+  Color bottomText;
+  Color myDocumentColor;
+  Color processColor;
+
+  Color containColor;
+
+  Color textFieldClr;
 
   /// Default constructor
   AppTheme({
     required this.isDark,
-    required this.txt,
     required this.primary,
-    required this.primaryLight,
-    required this.secondary,
-    required this.accentTxt,
-    required this.bg1,
-    required this.bgColor,
-    required this.surface,
-    required this.error,
-    required this.transparentColor,
-    //Extra
-    required this.bgGray,
-    required this.gray,
-    required this.darkGray,
-    required this.lightGray,
-    required this.borderGray,
+    required this.darkText,
+    required this.lightText,
+    required this.oneText,
+    required this.twoText,
+    required this.threeText,
+    required this.whiteBg,
+    required this.whiteContainer,
+    required this.stroke,
+    required this.fieldCardBg,
+    required this.trans,
+    required this.black,
+    required this.rulesClr,
+    required this.containerClr,
+    required this.containerClr1,
+    required this.shadowClr,
+    required this.online,
+    required this.red,
+    required this.phoneClr,
+    required this.googleClr,
+    required this.googleTxtClr,
+    required this.fbClr,
+    required this.emailClr,
+    required this.myDocumentColor,
+    required this.processColor,
     required this.green,
-    required this.white,
-    required this.whiteColor,
-    required this.blackText,
-    required this.blackColor,
-    required this.blackColor1,
-    required this.black12Color,
-    required this.textColor,
-    required this.contentColor,
-    required this.borderColor,
-    required this.greenColor,
-    required this.redColor,
-    required this.darkContentColor,
-    required this.ratingColor,
-    required this.homeCategoryColor,
-    required this.greyLight25,
-    required this.switchThumb,
-    required this.number,
-    required this.dark,
+    required this.whiteColor, required this.bottomText, required this.containColor, required this.textFieldClr,
   });
 
   /// fromType factory constructor
@@ -92,124 +80,100 @@ class AppTheme {
     switch (t) {
       case ThemeType.light:
         return AppTheme(
-          isDark: false,
-          txt: const Color(0xFF001928),
-          primary: const Color(0xff541F5C),
-          primaryLight: const Color(0xFF4B84E7),
-          secondary: const Color(0xFF6EBAE7),
-          accentTxt: const Color(0xFF001928),
-          bg1: Colors.white,
-          bgColor: Colors.white,
-          surface: Colors.white,
-          error: const Color(0xFFd32f2f),
-          transparentColor: Colors.transparent,
-          //Extra
-          bgGray: const Color(0xFFF0F8FD),
-          gray: const Color(0xFF999999),
-          darkGray: const Color(0xFF666666),
-          lightGray: const Color(0xFFEDEFF4),
-          borderGray: const Color(0xFFE6E8EA),
-          green: const Color(0xFF5CB85C),
-          white: Colors.white,
-          whiteColor: Colors.white,
-          blackText: const Color(0xFF222222),
-          blackColor: Colors.black,
-          blackColor1: Colors.black,
-          black12Color: Colors.black12,
-          contentColor: const Color(0xFF777777),
-          borderColor: const Color(0xFFDDDDDD),
-          greenColor: const Color(0xFF198754),
-          redColor: Colors.red,
-          darkContentColor: const Color(0xFFBABABA),
-          ratingColor: const Color(0xFFFFBA49),
-          homeCategoryColor: const Color(0xFFEAEDF2),
-          textColor: Colors.white,
-          greyLight25: const Color(0xFFEDEFF4),
-            switchThumb: Colors.white10,
-          number: const Color(0xff363941),
-          dark: const Color(0xff010D21),
-        );
+            isDark: false,
+            primary: const Color(0xff541F5C),
+            containColor: const Color(0xffC9B7CB),
+            myDocumentColor: const Color(0xff9E9E9E),
+            processColor: const Color(0xffEDEDED),
+            darkText: const Color(0xff00162E),
+            bottomText: const Color(0xffA48AA9),
+            textFieldClr: const Color(0x0FC35DD2),
+            lightText: const Color(0xff767676),
+            oneText: const Color(0xff2D2D2D),
+            twoText: const Color(0xff3d3d3d),
+            threeText: const Color(0xff868686),
+            whiteBg: const Color(0xffFFFFFF),
+            whiteContainer: const Color(0x0F000000),
+            stroke: const Color(0xffE5E8EA),
+            fieldCardBg: const Color(0xffF5F6F7),
+            whiteColor: const Color(0xffFFFFFF),
+            trans: Colors.transparent,
+            black: const Color(0xff000000),
+            rulesClr: const Color(0xff3A3A3A),
+            containerClr: const Color(0xffEEE9EF),
+            containerClr1: const Color(0xffFCF6FD),
+            shadowClr: const Color(0x1E929292),
+            green: Colors.green,
+            online: Colors.green,
+            red: const Color(0xffFF4B4B),
+            phoneClr: const Color(0xff43C4A5),
+            googleClr: const Color(0xffEBF2FA),
+            fbClr: const Color(0xff0084FF),
+            emailClr: const Color(0xffD0011B),
+            googleTxtClr: const Color(0xff707477));
 
       case ThemeType.dark:
         return AppTheme(
-          isDark: true,
-          txt: Colors.black,
-          primary: const Color(0xFF3467B8),
-          primaryLight: const Color(0xFF202020),
-          secondary: const Color(0xFF6EBAE7),
-          accentTxt: const Color(0xFF001928),
-          bg1: const Color(0xFF151A1E),
-          bgColor: const Color(0xFF262626),
-          surface: const Color(0xFF151A1E),
-          error: const Color(0xFFd32f2f),
-          transparentColor: Colors.transparent,
-          //Extra
-          bgGray: const Color(0xFF262F36),
-          gray: const Color(0xFF999999),
-          darkGray: const Color(0xFF999999),
-          lightGray: const Color(0xFF202020),
-          borderGray: const Color(0xFF353C41),
-          green: const Color(0xFF5CB85C),
-          white: Colors.white,
-          whiteColor: Colors.black,
-          blackText: const Color(0xFF262626),
-          blackColor: Colors.white,
-          blackColor1: Colors.black,
-          black12Color: Colors.white12,
-          contentColor: const Color(0xFF777777),
-          borderColor: const Color(0xFFDDDDDD),
-          greenColor: const Color(0xFF198754),
-          redColor: Colors.red,
-          darkContentColor: const Color(0xFFBABABA),
-          ratingColor: const Color(0xFFFFBA49),
-          textColor: const Color(0xFF636363),
-          homeCategoryColor: const Color(0xFFEAEDF2),
-          greyLight25: Colors.black,
-          switchThumb: Colors.grey.shade500,
-            number: const Color(0xff363941),
-          dark: const Color(0xff010D21),
-        );
+            isDark: true,
+            processColor: const Color(0xffEDEDED),
+            myDocumentColor: const Color(0xff9E9E9E),
+            primary: const Color(0xff5465FF),
+            darkText: const Color(0xffF1F1F1),
+            lightText: const Color(0xff767676),
+            oneText: const Color(0xff808B97),
+            twoText: const Color(0xff3d3d3d),
+            threeText: const Color(0xff3d3d3d),
+            whiteBg: const Color(0xff1A1C28),
+            whiteContainer: const Color(0x0F000000),
+            stroke: const Color(0xff3A3D48),
+            fieldCardBg: const Color(0xff262935),
+            whiteColor: const Color(0xffFFFFFF),
+            trans: Colors.transparent,
+            black: const Color(0xff000000),
+            rulesClr: const Color(0xff3A3A3A),
+            containerClr: const Color(0xffEEE9EF),
+            containerClr1: const Color(0xffFCF6FD),
+            shadowClr: const Color(0x1E929292),
+            green: Colors.green,
+            online: Colors.green,
+            red: const Color(0xffFF4B4B),
+            phoneClr: const Color(0xff43C4A5),
+            googleClr: const Color(0xffEBF2FA),
+            fbClr: const Color(0xff0084FF),
+            emailClr: const Color(0xffD0011B),
+            googleTxtClr: const Color(0xff707477), bottomText: const Color(0xffA48AA9), containColor: const Color(0xff929292), textFieldClr: const Color(0x0FC35DD2));
     }
   }
 
   ThemeData get themeData {
     var t = ThemeData.from(
       textTheme: (isDark ? ThemeData.dark() : ThemeData.light()).textTheme,
+      useMaterial3: true,
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: primary,
-        secondary: secondary,
-        background: bg1,
-        surface: surface,
-        onBackground: txt,
-        onSurface: txt,
-        onError: txt,
-        onPrimary: accentTxt,
-        onSecondary: accentTxt,
-        error: error,
+        secondary: primary,
+        background: whiteBg,
+        surface: whiteBg,
+        onBackground: whiteBg,
+        onSurface: whiteBg,
+        onError: Colors.red,
+        onPrimary: primary,
+        tertiary: whiteBg,
+        onInverseSurface: whiteBg,
+        tertiaryContainer: whiteBg,
+        surfaceTint: whiteBg,
+        surfaceVariant: whiteBg,
+        onSecondary: primary,
+        error: Colors.red,
       ),
     );
     return t.copyWith(
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       textSelectionTheme: TextSelectionThemeData(
-        selectionColor: borderGray,
-        selectionHandleColor: Colors.transparent,
-        cursorColor: primary,
-      ),
+          selectionHandleColor: Colors.transparent, cursorColor: primary),
       buttonTheme: ButtonThemeData(buttonColor: primary),
       highlightColor: primary,
-      radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
-            return null;
-          }
-          if (states.contains(MaterialState.selected)) {
-            return primary;
-          }
-          return null;
-        }),
-      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-class SvgAssets{
+class ESvgAssets {
   final String decrement = "assets/svg/decrement.svg";
   final String increment = "assets/svg/increment.svg";
   final String leftArrow = "assets/svg/leftArrow.svg";
@@ -9,5 +9,6 @@ class SvgAssets{
   final String global = "assets/svg/global.svg";
   final String map = "assets/svg/map.svg";
   final String search = "assets/svg/search.svg";
+
 
 }

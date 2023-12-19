@@ -7,6 +7,8 @@ import 'package:contactbook/widgets/common_decrement_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../common/assets/index.dart';
+
 class CustomTimePicker extends StatelessWidget {
   final String title;
   final Function() onDecrement;
@@ -26,7 +28,7 @@ class CustomTimePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DateTimeProvider>(builder: (context, dateTimePvr, child) {
+    return Consumer<DateTimeProvider>(builder: (context1, dateTimePvr, child) {
       return CustomPaint(
           painter: RPSCustomPainter(),
           child: SizedBox(
@@ -38,7 +40,7 @@ class CustomTimePicker extends StatelessWidget {
                     const VSpace(6),
                     CommonDecrementInkWell(
                         onTap: onDecrement,
-                        assetPath: svgAssets.decrement),
+                        assetPath: eSvgAssets.decrement),
                     Expanded(
                         child: CarouselSlider.builder(
                             carouselController: carouselController,
@@ -48,7 +50,7 @@ class CustomTimePicker extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   itemList[index],
                                   style: TextStyle(
-                                      color: dateTimePvr.appColor.primaryColor,
+                                      color: appColor(context).appTheme.primary,
                                       fontSize: 22));
                             },
                             options: CarouselOptions(
@@ -58,7 +60,7 @@ class CustomTimePicker extends StatelessWidget {
                                 scrollDirection: Axis.vertical))),
                     CommonDecrementInkWell(
                         onTap: onIncrement,
-                        assetPath: svgAssets.increment),
+                        assetPath: eSvgAssets.increment),
                     const VSpace(6)
                   ])));
     });

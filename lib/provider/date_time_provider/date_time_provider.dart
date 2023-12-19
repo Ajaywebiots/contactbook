@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:contactbook/common/theme/app_color.dart';
 import 'package:contactbook/config.dart';
 import 'package:contactbook/provider/date_time_provider/layouts/year_alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class DateTimeProvider extends ChangeNotifier {
   int scrollMinIndex = 0;
   int scrollHourIndex = 0;
   String showYear = 'Select Year';
-  final AppColor appColor = AppColor();
+
   DateTime selectedYear = DateTime.now();
   PageController pageController = PageController();
   CalendarFormat calendarFormat = CalendarFormat.month;

@@ -1,14 +1,12 @@
-import 'dart:developer';
-import 'package:contactbook/common/theme/app_color.dart';
+import 'package:contactbook/common/extension/text_style_extensions.dart';
 import 'package:contactbook/config.dart';
 import 'package:contactbook/extensions/spacing.dart';
-import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../common/theme/app_css.dart';
 import '../../../provider/payment_gateway_provider/paymentutils.dart';
-import 'layouts/stripe_payment_screen.dart';
+import 'layouts/stripe_payment_screen/stripe_payment_screen.dart';
 
 class PaymentGatewayScreen extends StatefulWidget {
   const PaymentGatewayScreen({super.key});
@@ -20,7 +18,7 @@ class PaymentGatewayScreen extends StatefulWidget {
 class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<PaymentUtils>(builder: (context, paymentUtilsPvr, child) {
+    return Consumer<PaymentUtils>(builder: (context1, paymentUtilsPvr, child) {
       return SafeArea(
           child: Scaffold(
               appBar: AppBar(backgroundColor: const Color(0xff141316)),
@@ -29,14 +27,14 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Select Payment Method",
-                        style: AppCss.philosopherblack28
-                            .textColor(AppColor().whiteColor)),
+                        style: appCss.philosopherBold28
+                            .textColor(appColor(context).appTheme.whiteColor)),
                     const VSpace(Insets.i20),
                     Container(
                         height: 600,
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                            color: AppColor().whiteColor,
+                            color: appColor(context).appTheme.whiteColor,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(40))),
                         child: GridView.builder(
@@ -53,15 +51,14 @@ class _PaymentGatewayScreenState extends State<PaymentGatewayScreen> {
                                           image: AssetImage(
                                               appArray.paymentList[index]
                                                   ['paymentImage'])),
-                                      color: AppColor().blackColor,
+                                      color: appColor(context).appTheme.black,
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(40))),
                                   child: InkWell(
                                       onTap: () => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const StripePaymentScreen()))));
+                                              builder: (context) => appArray.paymentList[index]['navigate']))));
                             }))
                   ]).padding(horizontal: 20)));
     });

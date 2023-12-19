@@ -1,5 +1,6 @@
 
 import 'package:contactbook/common/theme/app_css.dart';
+import 'package:contactbook/config.dart';
 import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class ColorGrid extends StatelessWidget {
               elevation: 5,
               child: Image.network("", height: 120, width: 200)),
           Text("",
-                  style: AppCss.philosopherBold14.textColor(Colors.white),
+                  style: appCss.philosopherBold18.textColor(Colors.white),
                   overflow: TextOverflow.ellipsis)
               .padding(all: 5)
           // Text('₹${}',

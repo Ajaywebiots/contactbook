@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:contactbook/provider/popup_list_provider.dart';
 
+import '../../../common/assets/index.dart';
 import 'layouts/categories_layout.dart';
 
 class Category extends StatelessWidget {
@@ -15,12 +16,12 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PopUpListProvider>(builder: (context, value, child) {
       return Column(children: [
-        Row(children: [Text(textAssets.categoryList)])
+        Row(children: [Text(appFonts.categoryList)])
             .padding(horizontal: 15, vertical: 20),
         TextFieldCommon1(
-                hintText: textAssets.searchHere,
+                hintText: appFonts.searchHere,
                 prefixIcon:
-                    SvgPicture.asset(svgAssets.search).padding(all: 10))
+                    SvgPicture.asset(eSvgAssets.search).padding(all: 10))
             .padding(horizontal: 15, vertical: 10),
         Expanded(
             child: ListView.builder(

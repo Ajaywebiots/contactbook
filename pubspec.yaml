@@ -61,6 +61,8 @@ dependencies:
   dio:
   http:
   flutter_stripe:
+  connectivity_plus: ^5.0.2
+  flutterwave_standard: ^1.0.8
 
 
 dev_dependencies:

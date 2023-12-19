@@ -4,6 +4,8 @@ import 'package:contactbook/widgets/common_increment_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import '../../../../common/assets/index.dart';
+
 class ItemScrollPhysics extends ScrollPhysics {
   /// Creates physics for snapping to item.
   /// Based on PageScrollPhysics
@@ -251,7 +253,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
                 print("datetime hourController : : $hourController");
               });
             },
-            assetPath: svgAssets.decrement),
+            assetPath: eSvgAssets.decrement),
         SizedBox(
             width: _getItemWidth(),
             height: _getItemHeight()! * 3,
@@ -269,7 +271,7 @@ class _TimePickerSpinnerState extends State<TimePickerSpinner> {
                 print("datetime hourController : : ${hourController.offset}");
               });
             },
-            assetPath: svgAssets.increment)
+            assetPath: eSvgAssets.increment)
       ]),
       const SizedBox(width: 43),
       Column(children: [

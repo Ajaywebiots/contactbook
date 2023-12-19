@@ -4,8 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-
-import '../../screen/app_screen/payment_gateway_screen/layouts/demo.dart';
+import '../../screen/app_screen/payment_gateway_screen/layouts/alert_dialog_common.dart';
 
 class PaymentUtils extends ChangeNotifier {
   bool isPaymentSelected = false;
@@ -15,9 +14,11 @@ class PaymentUtils extends ChangeNotifier {
   TextEditingController amount = TextEditingController();
 
   static var publishKey =
-      'pk_test_51I4llmDtrRJEUyttSD9XE6wutfZoCETc7eaQ5VkBHCKE2yvOe6QfC6UmcxpOGpenPE3LePnPNT8gKMinRwuheTfn00jOIXTO9p';
+      'pk_test_51MmTx1SHGHXeqsVlOWH2cwf42zty7jStl9ngvASN79Vri7bwGsbOSTGFTf17O2r5PiCIinh6vmO5FGrU5B2ymW7L00OcvpXwT3';
   static var secretKey =
-      'sk_test_51I4llmDtrRJEUyttFVaL6eUC2IqOKMvDTI42EbnBHUFiZ4IkCYrYURhLYW9zkRD3HrKyhNygC3ETP4aPanlvRRk500Zyg4loGK';
+      'sk_test_51MmTx1SHGHXeqsVlAbforUpNIqByURbQy2xKZLlDrSNUvtvbgjywaaEZfGsbcQxIh0ggazGXrfnZBy0rQSLCqvzo00PyWPfbne';
+
+
 
   Map<String, dynamic>? paymentIntent;
 
@@ -102,195 +103,200 @@ class PaymentUtils extends ChangeNotifier {
       log("message$e");
     }
   }
+
+////////////////////////
 //
-// final client = http.Client();
-//
-// static Map<String, String> headers = {
-//   'Authorization': 'Bearer $secretKey',
-//   'Content-Type': 'application/x-www-form-urlencoded'
-// };
-//
-// Future<Map<String, dynamic>> createPaymentIntents() async {
-//   const String url = 'https://api.stripe.com/v1/payment_intents';
-//
-//   Map<String, dynamic> body = {
-//     'amount': '2000',
-//     'currency': 'jpy',
-//     'payment_method_types[]': 'card'
-//   };
-//
-//   var response =
-//       await client.post(Uri.parse(url), headers: headers, body: body);
-//   if (response.statusCode == 200) {
-//     return json.decode(response.body);
-//   } else {
-//     print(json.decode(response.body));
-//     throw 'Failed to create PaymentIntents.';
-//   }
-// }
 
-/////////////////////////////
+  TextEditingController name = TextEditingController();
+  TextEditingController cardNumCtrl = TextEditingController();
+  TextEditingController cvvController = TextEditingController();
+  TextEditingController monthController = TextEditingController();
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  final client = http.Client();
+  bool isBack = true;
 
-// Map<String, dynamic>? paymentIntentData;
-// // Stripe Payment Method
-// Future<void> stripePayment(context,
-//     {required String amount, required String currency}) async {
-//   try {
-//     paymentIntentData = await createPaymentIntent(amount, currency);
-//     if (paymentIntentData != null) {
-//       await Stripe.instance.initPaymentSheet(
-//           paymentSheetParameters: SetupPaymentSheetParameters(
-//               merchantDisplayName: 'AJAY',
-//               customerId: paymentIntentData!['customer'],
-//               paymentIntentClientSecret: paymentIntentData!['client_secret'],
-//               customerEphemeralKeySecret:
-//                   paymentIntentData!['ephemeralKey']));
-//       displayPaymentSheet(context);
-//       notifyListeners();
-//     }
-//   } catch (e) {
-//     throw Exception("$e");
-//   }
-//   notifyListeners();
-// }
-//
-// // Stripe Error handler
-// displayPaymentSheetS(context) async {
-//   try {
-//     await Stripe.instance.presentPaymentSheet();
-//     showDialog(
-//         barrierDismissible: false,
-//         context: context,
-//         builder: (context) {
-//           return Container();
-//         });
-//   } catch (e) {
-//     print(e);
-//   }
-//   notifyListeners();
-// }
-//
-// // Stripe Create payment Method
-// createPaymentIntentS(String amount, String currency) async {
-//   try {
-//     Map<String, dynamic> body = {
-//       'amount': calculateAmountA(amount),
-//       'currency': currency,
-//       'payment_method_types[]': 'card'
-//     };
-//     var response = await http.post(
-//         Uri.parse('https://api.stripe.com/v1/payment_intents'),
-//         body: body,
-//         headers: {
-//           'Authorization':
-//               'Bearer sk_test_51I4llmDtrRJEUyttFVaL6eUC2IqOKMvDTI42EbnBHUFiZ4IkCYrYURhLYW9zkRD3HrKyhNygC3ETP4aPanlvRRk500Zyg4loGK',
-//           'Content-Type': 'application/x-www-form-urlencoded'
-//         });
-//     return jsonDecode(response.body);
-//   } catch (e) {
-//     throw Exception("");
-//   }
-// }
-//
-// // Stripe amount calculate
-// calculateAmountA(String amount) {
-//   final a = (int.parse(amount)) * 100;
-//   return a.toString();
-// }
-
-//////////////////////////
-}
-
-class NewProvider extends ChangeNotifier {
+  bool isLoading = false;
+  int price = 0;
+  String plan = '';
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $secretKey',
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
 
 
 
 
-  Future<void> init() async {
-    Map<String, dynamic> customer = await createCustomer();
-    Map<String, dynamic> paymentIntent =
-        await createPaymentIntent(customer['id']);
-    log("customer::: $customer");
-    log("paymentIntent ::::: $paymentIntent");
-    await createCreditCard(customer['id'], paymentIntent['client_secret']);
-    Map<String, dynamic> customerPaymentMethods =
-        await getCustomerPaymentMethods(customer['id']);
 
-    await createSubscription(
-      customer['id'],
-      customerPaymentMethods['data'][0]['id'],
-    );
+  Future<void> subscriptions(
+      { priceId, context}) async {
+    isLoading = true;
+    notifyListeners();
+    final _customer = await createCustomer();
+    isLoading = true;
+    notifyListeners();
+    final _paymentMethod = await createPaymentMethod();
+    log("_paymentMethod :: $_paymentMethod");
+    if (_paymentMethod["error"] == null) {
+      await attachPaymentMethod(_paymentMethod['id'], _customer['id']);
+      isLoading = true;
+      notifyListeners();
+      await updateCustomer(_paymentMethod['id'], _customer['id']);
+      isLoading = true;
+      notifyListeners();
+      final invoice = await createSubscriptions(_customer['id'], priceId);
+      log("INVOICE ID ${invoice["latest_invoice"]}");
+      isLoading = true;
+      notifyListeners();
+      final invoiceRes =
+      await invoicePay(invoice["latest_invoice"], _paymentMethod['id']);
+      log("invoiceRes ${invoiceRes["subscription"]}");
+      log("_paymentMethod ${_paymentMethod["id"]}");
+      isLoading = false;
+      notifyListeners();
+      if (invoiceRes["subscription"] != null) {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return AlertDialogCommon(
+                image: '',
+                bText1: 'okay',
+                title: 'Payment Success',
+                subtext: 'Congratulation',
+                b1OnTap: () async {},
+                crossOnTap: () {},
+              );
+            });
+      } else {
+        isLoading = false;
+        notifyListeners();
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return AlertDialogCommon(
+                  image: '',
+                  bText1: "Try Again",
+                  title: "Payment Failed",
+                  subtext: "Due To",
+                  b1OnTap: () {},
+                  crossOnTap: () {});
+            });
+      }
+      notifyListeners();
+    } else {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+  Future<Map<String, dynamic>> createSubscriptions(
+      customerId, String priceId) async {
+    const String url = 'https://api.stripe.com/v1/subscriptions';
+
+    Map<String, dynamic> body = {
+      'customer': customerId,
+      'items[0][price]': priceId,
+    };
+
+    var response =
+        await client.post(Uri.parse(url), headers: headers, body: body);
+    if (response.statusCode == 200) {
+      log("SUBSCRIPTION RES ${json.decode(response.body)}");
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      throw 'Failed to register as a subscriber.';
+    }
   }
 
   Future<Map<String, dynamic>> createCustomer() async {
-    final customerCreationResponse = await apiService(
-        endpoint: 'customers',
-        requestMethod: ApiServiceMethodType.post,
-        requestBody: {
-          'name': ' ',
-          'email': '',
-          'description': 'hello'
-        });
-
-    return customerCreationResponse!;
+    const String url = 'https://api.stripe.com/v1/customers';
+    var response = await client.post(
+      Uri.parse(url),
+      headers: headers,
+      body: {'description': 'new customer'},
+    );
+    if (response.statusCode == 200) {
+      log("RESPONSEa ${json.decode(response.body)['id']}");
+      log("RESPONSEa ${json.decode(response.body)}");
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      throw 'Failed to register as a customer.';
+    }
   }
 
-  Future<Map<String, dynamic>> createPaymentIntent(String customerId) async {
-    final paymentIntentCreationResponse = await apiService(
-      requestMethod: ApiServiceMethodType.post,
-      endpoint: 'setup_intents',
-      requestBody: {
-        'customer': customerId,
-        'automatic_payment_methods[enabled]': 'true',
+  Future<Map<String, dynamic>> createPaymentMethod() async {
+    const String url = 'https://api.stripe.com/v1/payment_methods';
+    var response = await client.post(
+      Uri.parse(url),
+      headers: headers,
+      body: {
+        'type': 'card',
+        'card[number]': cardNumCtrl.text,
+        'card[exp_month]': monthController.text.substring(0, 2),
+        'card[exp_year]': monthController.text.substring(3, 5),
+        'card[cvc]': cvvController.text,
       },
     );
-
-    return paymentIntentCreationResponse!;
+   // log('monthController${monthController.text.substring(0, 1)}'); log('monthController${monthController.text.substring(3, 5)}');
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      return json.decode(response.body);
+    }
   }
 
-  Future<void> createCreditCard(
-    String customerId,
-    String paymentIntentClientSecret,
-  ) async {
-    await Stripe.instance.initPaymentSheet(
-      paymentSheetParameters: SetupPaymentSheetParameters(
-        primaryButtonLabel: 'Subscribe \$10.00',
-        style: ThemeMode.light,
-        merchantDisplayName: 'Flutter Stripe Store Demo',
-        customerId: customerId,
-        setupIntentClientSecret: paymentIntentClientSecret,
-      ),
+  Future<Map<String, dynamic>> attachPaymentMethod(
+      String paymentMethodId, customerId) async {
+    final String url =
+        'https://api.stripe.com/v1/payment_methods/$paymentMethodId/attach';
+    var response = await client.post(
+      Uri.parse(url),
+      headers: headers,
+      body: {
+        'customer': customerId,
+      },
     );
-
-    await Stripe.instance.presentPaymentSheet();
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      throw 'Failed to attach PaymentMethod.';
+    }
   }
 
-  Future<Map<String, dynamic>> getCustomerPaymentMethods(
-    String customerId,
-  ) async {
-    final customerPaymentMethodsResponse = await apiService(
-      endpoint: 'customers/$customerId/payment_methods',
-      requestMethod: ApiServiceMethodType.get,
+  Future<Map<String, dynamic>> updateCustomer(
+      String paymentMethodId, customerId) async {
+    final String url = 'https://api.stripe.com/v1/customers/$customerId';
+
+    var response = await client.post(Uri.parse(url),
+        headers: headers,
+        body: {'invoice_settings[default_payment_method]': paymentMethodId});
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      throw 'Failed to update Customer.';
+    }
+  }
+
+
+  Future<Map<String, dynamic>> invoicePay(
+      String invoiceId, String paymentMethodId) async {
+    String url = 'https://api.stripe.com/v1/invoices/$invoiceId/pay';
+    var response = await client.post(
+      Uri.parse(url),
+      headers: headers,
+      body: {'payment_method': paymentMethodId},
     );
-
-    return customerPaymentMethodsResponse!;
+    if (response.statusCode == 200) {
+      log("RESPONSE INVOICE ${json.decode(response.body)}");
+      return json.decode(response.body);
+    } else {
+      print(json.decode(response.body));
+      throw 'Failed to open invoice';
+    }
   }
-
-  Future<Map<String, dynamic>> createSubscription(
-      String customerId, String paymentId) async {
-    final subscriptionCreationResponse = await apiService(
-        endpoint: 'subscriptions',
-        requestMethod: ApiServiceMethodType.post,
-        requestBody: {
-          'customer': customerId,
-          'items[0][price]': 'price_1ONpoNDtrRJEUyttBxiXIK1L',
-          'default_payment_method': paymentId
-        });
-    return subscriptionCreationResponse!;
-  }
-
-
-
-
-
 }

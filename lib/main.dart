@@ -1,11 +1,19 @@
+import 'dart:developer';
+
 import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
+import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/demo.dart';
 import 'package:contactbook/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:contactbook/selection_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'common/assets/index.dart';
+import 'common/theme/app_css.dart';
+import 'common/theme/app_theme.dart';
+import 'common/theme/theme_service.dart';
 import 'provider/auth_provider/register_provider.dart';
 import 'package:contactbook/provider/dashboard_provider.dart';
 import 'package:contactbook/provider/selection_provider.dart';
@@ -24,6 +32,8 @@ import 'package:contactbook/provider/number_login_provider/home_screen_provider.
 import 'package:contactbook/provider/number_login_provider/number_login_provider.dart';
 import 'package:contactbook/provider/number_login_provider/verification_screen_provider.dart';
 
+import 'routes/index.dart';
+
 final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -31,37 +41,66 @@ void main() async {
   await Firebase.initializeApp();
   await NotificationServices().initNotification();
   Stripe.publishableKey = PaymentUtils.publishKey;
-
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => UserLogin()),
-    ChangeNotifierProvider(create: (_) => LoginController()),
-    ChangeNotifierProvider(create: (_) => RegisterController()),
-    ChangeNotifierProvider(create: (_) => DashBoardController()),
-    ChangeNotifierProvider(create: (_) => SplashScreenController()),
-    ChangeNotifierProvider(create: (_) => LocalContactController()),
-    ChangeNotifierProvider(create: (_) => OnBoardingCtrl()),
-    ChangeNotifierProvider(create: (_) => OnBoardingCtrl1()),
-    ChangeNotifierProvider(create: (_) => OnBoardingCtrl2()),
-    ChangeNotifierProvider(create: (_) => SelectionProvider()),
-    ChangeNotifierProvider(create: (_) => PopUpListProvider()),
-    ChangeNotifierProvider(create: (_) => AnimationProvider()),
-    ChangeNotifierProvider(create: (_) => DateTimeProvider()),
-    ChangeNotifierProvider(create: (_) => VerificationProvider()),
-    ChangeNotifierProvider(create: (_) => NumberLoginProvider()),
-    ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
-    ChangeNotifierProvider(create: (_) => ProductListProvider()),
-    ChangeNotifierProvider(create: (_) => ThemeProvider()),
-    ChangeNotifierProvider(create: (_) => PaymentUtils()),
-    ChangeNotifierProvider(create: (_) => NewProvider()),
-  ], child: const MyApp()));
+  runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        home: SelectionScreen(), debugShowCheckedModeBanner: false);
+    return FutureBuilder(
+        future: SharedPreferences.getInstance(),
+        builder: (context, AsyncSnapshot<SharedPreferences> snapData) {
+          if (snapData.hasData) {
+            return MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                      create: (_) => ThemeService(snapData.data!)),
+                  ChangeNotifierProvider(create: (_) => UserLogin()),
+                  ChangeNotifierProvider(create: (_) => LoginController()),
+                  ChangeNotifierProvider(create: (_) => RegisterController()),
+                  ChangeNotifierProvider(create: (_) => DashBoardController()),
+                  ChangeNotifierProvider(create: (_) => SplashScreenController()),
+                  ChangeNotifierProvider(create: (_) => LocalContactController()),
+                  ChangeNotifierProvider(create: (_) => OnBoardingCtrl()),
+                  ChangeNotifierProvider(create: (_) => OnBoardingCtrl1()),
+                  ChangeNotifierProvider(create: (_) => OnBoardingCtrl2()),
+                  ChangeNotifierProvider(create: (_) => SelectionProvider()),
+                  ChangeNotifierProvider(create: (_) => PopUpListProvider()),
+                  ChangeNotifierProvider(create: (_) => AnimationProvider()),
+                  ChangeNotifierProvider(create: (_) => DateTimeProvider()),
+                  ChangeNotifierProvider(create: (_) => VerificationProvider()),
+                  ChangeNotifierProvider(create: (_) => NumberLoginProvider()),
+                  ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
+                  ChangeNotifierProvider(create: (_) => ProductListProvider()),
+                  ChangeNotifierProvider(create: (_) => ThemeProvider()),
+                  ChangeNotifierProvider(create: (_) => PaymentUtils()),
+                  ChangeNotifierProvider(create: (_) => CardProvider()),
+
+                ],
+                child: Consumer<ThemeService>(
+                    builder: (context, theme, child) {
+                      log("THEME ${theme.isDarkMode}");
+                      return MaterialApp(
+                          title: 'Flutter Demo',
+                          debugShowCheckedModeBanner: false,
+                          theme: AppTheme.fromType(ThemeType.light).themeData,
+                          darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
+                          themeMode: theme.theme,
+                          initialRoute: "/",
+                          routes: appRoute.route);
+                    }));
+          } else {
+            return MaterialApp(
+                theme: AppTheme.fromType(ThemeType.light).themeData,
+                darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
+                themeMode: ThemeMode.light,
+                debugShowCheckedModeBanner: false,
+                home: const SelectionScreen());
+          }
+        });
   }
 }

@@ -31,12 +31,12 @@ class DataBaseHelper {
     print("SACE LOCAL : $cb");
   }
 
-
-  Future<List<Map>> contactView(int userid, Database db) async {
-    String contactViewData = "select * from contact where userid = '$userid'";
-    List<Map> contactV = await db.rawQuery(contactViewData);
-    return contactV;
-  }
+  //
+  // Future<List<Map>> contactView(int userid, Database db) async {
+  //   String contactViewData = "select * from contact where userid = '$userid'";
+  //   List<Map> contactV = await db.rawQuery(contactViewData);
+  //   return contactV;
+  // }
 
   Future<void> update(
       String newName, String newNumber, int id, Database db) async {
@@ -72,4 +72,10 @@ class DataBaseHelper {
     print("===$list");
     return list;
   }
+
+  Future<List<Map>> contactView(int userid, Database db) async {
+      String contactViewData = "select * from contact where userid = '$userid'";
+      List<Map> contactV = await db.rawQuery(contactViewData);
+      return contactV;
+    }
 }

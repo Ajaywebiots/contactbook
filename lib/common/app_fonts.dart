@@ -1,6 +1,4 @@
-class TextAssets{
-
-  // date & time Page
+class AppFonts {
   final String addDate = "Add date & time";
   final String time = "Time";
   final String selectDate = "Select date & time";
@@ -34,14 +32,5 @@ class TextAssets{
   final String distance = "Distance";
   final String categoryList = "Category list";
   final String searchHere = "Search here";
-
-
-
-
-
-
-
-
-
 
 }

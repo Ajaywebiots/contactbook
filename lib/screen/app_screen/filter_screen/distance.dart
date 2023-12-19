@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:contactbook/config.dart';
 
+import '../../../common/assets/index.dart';
 import 'layouts/distance_custom_shape/custom_shape.dart';
 
 class Distance extends StatefulWidget {
@@ -28,13 +29,13 @@ class _DistanceState extends State<Distance> {
             Future.delayed(const Duration(milliseconds: 150))
                 .then((value) async {
               FrameInfo fi =
-                  await value.loadImage(svgAssets.userSlider);
+                  await value.loadImage(eSvgAssets.userSlider);
               value.customImage = fi.image;
               value.notifyListeners();
             });
           },
           child: Column(children: [
-            Row(children: [Text(textAssets.distance)])
+            Row(children: [Text(appFonts.distance)])
                 .padding(horizontal: 15, vertical: 20),
             Card(
                 elevation: 2,
@@ -54,8 +55,8 @@ class _DistanceState extends State<Distance> {
                             height: 22,
                             child: const Icon(Icons.circle,
                                 color: Color(0xff5465FF), size: 13))),
-                    leading: SvgPicture.asset(svgAssets.map),
-                    title: Text(textAssets.nearByLocation))),
+                    leading: SvgPicture.asset(eSvgAssets.map),
+                    title: Text(appFonts.nearByLocation))),
             SizedBox(
                 height: 124,
                 child: Card(
@@ -71,9 +72,9 @@ class _DistanceState extends State<Distance> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(children: [
-                                  SvgPicture.asset(svgAssets.global),
+                                  SvgPicture.asset(eSvgAssets.global),
                                   const HSpace(30),
-                                   Text(textAssets.distanceLocation),
+                                   Text(appFonts.distanceLocation),
                                 ]),
                                 InkWell(
                                     onTap: () => value.onChange1(),
@@ -102,7 +103,7 @@ class _DistanceState extends State<Distance> {
                               width: MediaQuery.of(context).size.width / 1,
                               child: FutureBuilder<FrameInfo>(
                                   future: value.loadImage(
-                                      svgAssets.userSlider),
+                                      eSvgAssets.userSlider),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData &&
                                         snapshot.data != null) {

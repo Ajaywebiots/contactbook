@@ -50,7 +50,7 @@ class DashBoardController extends ChangeNotifier {
 
   logOutButton(context) {
     ScaffoldMessenger.of(context)
-        .showSnackBar( SnackBar(content: Text(textAssets.logoutSuccess)));
+        .showSnackBar( SnackBar(content: Text(appFonts.logoutSuccess)));
     Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (context) {
         return const LoginScreen();

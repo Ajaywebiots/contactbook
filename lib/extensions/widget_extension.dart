@@ -1,17 +1,14 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:contactbook/config.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-
 typedef GestureOnTapChangeCallback = void Function(bool tapState);
 
 extension StyledWidget on Widget {
-  Widget parent(Widget Function({required Widget child}) parent) =>
-      parent(child: this);
+  Widget parent(Widget Function({required Widget child}) parent) => parent(child: this);
 
   Widget padding({
     double? all,
@@ -53,11 +50,32 @@ extension StyledWidget on Widget {
         child: this,
       );
 
-  Widget opacity(
-    double opacity, {
-    bool animate = false,
-    bool alwaysIncludeSemantics = false,
+  Widget paddingAll(double padding) =>
+      Padding(padding: EdgeInsets.all(padding), child: this);
+
+  Widget paddingSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
+      Padding(
+          padding:
+          EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+          child: this);
+
+
+  Widget paddingOnly({
+    double left = 0.0,
+    double top = 0.0,
+    double right = 0.0,
+    double bottom = 0.0,
   }) =>
+      Padding(
+          padding: EdgeInsets.only(
+              top: top, left: left, right: right, bottom: bottom),
+          child: this);
+
+  Widget opacity(
+      double opacity, {
+        bool animate = false,
+        bool alwaysIncludeSemantics = false,
+      }) =>
       Opacity(
         opacity: opacity,
         alwaysIncludeSemantics: alwaysIncludeSemantics,
@@ -74,30 +92,28 @@ extension StyledWidget on Widget {
       );
 
   Widget alignment(
-    AlignmentGeometry alignment, {
-    bool animate = false,
-  }) =>
+      AlignmentGeometry alignment, {
+        bool animate = false,
+      }) =>
       Align(
         alignment: alignment,
         child: this,
       );
 
   Widget backgroundColor(Color color, {bool animate = false}) => DecoratedBox(
-        decoration: BoxDecoration(color: color),
-        child: this,
-      );
+    decoration: BoxDecoration(color: color),
+    child: this,
+  );
 
-  Widget backgroundImage(DecorationImage image, {bool animate = false}) =>
-      DecoratedBox(
-        decoration: BoxDecoration(image: image),
-        child: this,
-      );
+  Widget backgroundImage(DecorationImage image, {bool animate = false}) => DecoratedBox(
+    decoration: BoxDecoration(image: image),
+    child: this,
+  );
 
-  Widget backgroundGradient(Gradient gradient, {bool animate = false}) =>
-      DecoratedBox(
-        decoration: BoxDecoration(gradient: gradient),
-        child: this,
-      );
+  Widget backgroundGradient(Gradient gradient, {bool animate = false}) => DecoratedBox(
+    decoration: BoxDecoration(gradient: gradient),
+    child: this,
+  );
 
   Widget backgroundLinearGradient({
     AlignmentGeometry begin = Alignment.centerLeft,
@@ -124,16 +140,7 @@ extension StyledWidget on Widget {
     );
   }
 
-  Widget backgroundRadialGradient(
-      {AlignmentGeometry center = Alignment.center,
-      double radius = 0.5,
-      List<Color>? colors,
-      List<double>? stops,
-      TileMode tileMode = TileMode.clamp,
-      AlignmentGeometry? focal,
-      double focalRadius = 0.0,
-      GradientTransform? transform,
-      bool animate = false}) {
+  Widget backgroundRadialGradient({AlignmentGeometry center = Alignment.center, double radius = 0.5, List<Color>? colors, List<double>? stops, TileMode tileMode = TileMode.clamp, AlignmentGeometry? focal, double focalRadius = 0.0, GradientTransform? transform, bool animate = false}) {
     BoxDecoration decoration = BoxDecoration(
       gradient: RadialGradient(
         center: center,
@@ -152,15 +159,7 @@ extension StyledWidget on Widget {
     );
   }
 
-  Widget backgroundSweepGradient(
-      {AlignmentGeometry center = Alignment.center,
-      double startAngle = 0.0,
-      double endAngle = pi * 2,
-      List<Color>? colors,
-      List<double>? stops,
-      TileMode tileMode = TileMode.clamp,
-      GradientTransform? transform,
-      bool animate = false}) {
+  Widget backgroundSweepGradient({AlignmentGeometry center = Alignment.center, double startAngle = 0.0, double endAngle = pi * 2, List<Color>? colors, List<double>? stops, TileMode tileMode = TileMode.clamp, GradientTransform? transform, bool animate = false}) {
     BoxDecoration decoration = BoxDecoration(
       gradient: SweepGradient(
         center: center,
@@ -178,16 +177,15 @@ extension StyledWidget on Widget {
     );
   }
 
-  Widget backgroundBlendMode(BlendMode blendMode, {bool animate = false}) =>
-      DecoratedBox(
-        decoration: BoxDecoration(backgroundBlendMode: blendMode),
-        child: this,
-      );
+  Widget backgroundBlendMode(BlendMode blendMode, {bool animate = false}) => DecoratedBox(
+    decoration: BoxDecoration(backgroundBlendMode: blendMode),
+    child: this,
+  );
 
   Widget backgroundBlur(
-    double sigma, {
-    bool animate = false,
-  }) =>
+      double sigma, {
+        bool animate = false,
+      }) =>
       BackdropFilter(
         filter: ImageFilter.blur(
           sigmaX: sigma,
@@ -273,8 +271,8 @@ extension StyledWidget on Widget {
       );
 
   Widget clipOval() => ClipOval(
-        child: this,
-      );
+    child: this,
+  );
 
   Widget border({
     double? all,
@@ -288,18 +286,10 @@ extension StyledWidget on Widget {
   }) {
     BoxDecoration decoration = BoxDecoration(
       border: Border(
-        left: (left ?? all) == null
-            ? BorderSide.none
-            : BorderSide(color: color, width: left ?? all ?? 0, style: style),
-        right: (right ?? all) == null
-            ? BorderSide.none
-            : BorderSide(color: color, width: right ?? all ?? 0, style: style),
-        top: (top ?? all) == null
-            ? BorderSide.none
-            : BorderSide(color: color, width: top ?? all ?? 0, style: style),
-        bottom: (bottom ?? all) == null
-            ? BorderSide.none
-            : BorderSide(color: color, width: bottom ?? all ?? 0, style: style),
+        left: (left ?? all) == null ? BorderSide.none : BorderSide(color: color, width: left ?? all ?? 0, style: style),
+        right: (right ?? all) == null ? BorderSide.none : BorderSide(color: color, width: right ?? all ?? 0, style: style),
+        top: (top ?? all) == null ? BorderSide.none : BorderSide(color: color, width: top ?? all ?? 0, style: style),
+        bottom: (bottom ?? all) == null ? BorderSide.none : BorderSide(color: color, width: bottom ?? all ?? 0, style: style),
       ),
     );
     return DecoratedBox(
@@ -337,16 +327,13 @@ extension StyledWidget on Widget {
     );
   }
 
-  Widget elevation(double elevation,
-          {BorderRadiusGeometry borderRadius = BorderRadius.zero,
-          Color shadowColor = const Color(0xFF000000)}) =>
-      Material(
-        color: appTheme.transparentColor,
-        elevation: elevation,
-        borderRadius: borderRadius,
-        shadowColor: shadowColor,
-        child: this,
-      );
+  Widget elevation(double elevation, {BorderRadiusGeometry borderRadius = BorderRadius.zero, Color shadowColor = const Color(0xFF000000)}) => Material(
+    color: Colors.transparent,
+    elevation: elevation,
+    borderRadius: borderRadius,
+    shadowColor: shadowColor,
+    child: this,
+  );
 
   Widget boxShadow({
     Color color = const Color(0xFF000000),
@@ -386,9 +373,7 @@ extension StyledWidget on Widget {
       minHeight: minHeight,
       maxHeight: maxHeight,
     );
-    constraints = (width != null || height != null)
-        ? constraints.tighten(width: width, height: height)
-        : constraints;
+    constraints = (width != null || height != null) ? constraints.tighten(width: width, height: height) : constraints;
     return ConstrainedBox(
       constraints: constraints,
       child: this,
@@ -396,14 +381,14 @@ extension StyledWidget on Widget {
   }
 
   Widget width(double width, {bool animate = false}) => ConstrainedBox(
-        constraints: BoxConstraints.tightFor(width: width),
-        child: this,
-      );
+    constraints: BoxConstraints.tightFor(width: width),
+    child: this,
+  );
 
   Widget height(double height, {bool animate = false}) => ConstrainedBox(
-        constraints: BoxConstraints.tightFor(height: height),
-        child: this,
-      );
+    constraints: BoxConstraints.tightFor(height: height),
+    child: this,
+  );
 
   // TODO: FEATURE: ripple animation
   Widget ripple({
@@ -423,10 +408,9 @@ extension StyledWidget on Widget {
       Builder(
         builder: (BuildContext context) {
           // TODO: PERFORMANCE: findAncestorWidgetOfExactType vs InheritedWidget performance
-          GestureDetector? gestures =
-              context.findAncestorWidgetOfExactType<GestureDetector>();
+          GestureDetector? gestures = context.findAncestorWidgetOfExactType<GestureDetector>();
           return Material(
-            color: appTheme.transparentColor,
+            color: Colors.transparent,
             child: InkWell(
               focusColor: focusColor,
               hoverColor: hoverColor,
@@ -594,9 +578,9 @@ extension StyledWidget on Widget {
       );
 
   Widget semanticsLabel(String label) => Semantics.fromProperties(
-        properties: SemanticsProperties(label: label),
-        child: this,
-      );
+    properties: SemanticsProperties(label: label),
+    child: this,
+  );
 
   Widget gestures({
     GestureOnTapChangeCallback? onTapChange,
@@ -754,28 +738,48 @@ extension StyledWidget on Widget {
 
   Widget safeArea() => SafeArea(child: this);
 
-  Widget inkWell(context,{GestureTapCallback? onTap}) => Material(
-        color: appTheme.transparentColor,
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: appTheme.transparentColor,
-            highlightColor: appTheme.transparentColor,
-            hoverColor: appTheme.transparentColor,
-            splashFactory: NoSplash.splashFactory,
-          ),
-          child: InkWell(
-            onTap: onTap,
-            highlightColor: appTheme.transparentColor,
-            splashFactory: NoSplash.splashFactory,
-            overlayColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                return appTheme.transparentColor;
-              },
-            ),
-            hoverColor: appTheme.transparentColor,
-            splashColor: appTheme.transparentColor,
-            child: this,
-          ),
-        ),
-      );
+  Widget inkWell(BuildContext context, {GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) => InkWell(
+    onLongPress: onLongPress,
+    highlightColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
+    onTap: onTap,child: this,);
+
+  Widget onLongPressTap({GestureLongPressCallback? onLongPress}) => InkWell(onLongPress: onLongPress,child: this,);
+
+  Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
+      Container(
+          margin:
+          EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+          child: this);
+}
+
+
+/// Add margin property to widget
+extension WidgetMarginX on Widget {
+  Widget marginAll(double margin) =>
+      Container(margin: EdgeInsets.all(margin), child: this);
+
+  // Widget marginSymmetric({double horizontal = 0.0, double vertical = 0.0}) =>
+  //     Container(
+  //         margin:
+  //         EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+  //         child: this);
+
+  Widget marginOnly({
+    double left = 0.0,
+    double top = 0.0,
+    double right = 0.0,
+    double bottom = 0.0,
+  }) =>
+      Container(
+          margin: EdgeInsets.only(
+              top: top, left: left, right: right, bottom: bottom),
+          child: this);
+
+  Widget get marginZero => Container(margin: EdgeInsets.zero, child: this);
+}
+
+/// Allows you to insert widgets inside a CustomScrollView
+extension WidgetSliverBoxX on Widget {
+  Widget get sliverBox => SliverToBoxAdapter(child: this);
 }

@@ -9,7 +9,6 @@ import 'package:contactbook/screen/auth_screen/onboarding_screen/onboarding_scre
 import 'package:contactbook/screen/auth_screen/onboarding_screen/onboarding_screen1.dart';
 import 'package:contactbook/screen/auth_screen/onboarding_screen/onboarding_screen2.dart';
 import 'package:flutter/material.dart';
-
 import '../screen/app_screen/payment_gateway_screen/payment_gateway_screen.dart';
 
 class SelectionProvider extends ChangeNotifier {
@@ -24,7 +23,7 @@ class SelectionProvider extends ChangeNotifier {
     const AnimationDemo(),
     const NumberLogin(),
     const ProductListScreen(),
-    const PaymentGatewayScreen()
+    const PaymentGatewayScreen(),
   ];
   List screenName = [
     "Import Contact From Phone",

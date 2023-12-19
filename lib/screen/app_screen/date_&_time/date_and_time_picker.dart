@@ -13,6 +13,8 @@ import 'package:contactbook/extensions/widget_extension.dart';
 import 'package:contactbook/provider/onboarding_provider/stateful_wrapper.dart';
 import 'package:contactbook/provider/date_time_provider/date_time_provider.dart';
 
+import '../../../common/assets/index.dart';
+
 class DateTimePicker extends StatefulWidget {
   const DateTimePicker({super.key});
 
@@ -45,7 +47,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
               child: SingleChildScrollView(
                   child: Column(children: [
                 ListTile(
-                    title: Text(textAssets.selectDate,
+                    title: Text(appFonts.selectDate,
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                     trailing: IconButton(
                         onPressed: () => Navigator.pop(context),
@@ -57,7 +59,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           width: 34,
                           decoration: const BoxDecoration(
                               color: Color(0xffF5F6F7), shape: BoxShape.circle),
-                          child: SvgPicture.asset(svgAssets.leftArrow))
+                          child: SvgPicture.asset(eSvgAssets.leftArrow))
                       .inkWell(context, onTap: () => dateTimePvr.onLeftArrow()),
                   const HSpace(20),
                   Container(
@@ -82,7 +84,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                                     style:
                                         const TextStyle(color: Colors.black)));
                           }).toList(),
-                          icon: SvgPicture.asset(svgAssets.dropDown),
+                          icon: SvgPicture.asset(eSvgAssets.dropDown),
                           onChanged: (choseVal) =>
                               dateTimePvr.onDropDownChange(choseVal))),
                   const HSpace(20),
@@ -98,7 +100,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text("${dateTimePvr.selectedYear.year}"),
-                                SvgPicture.asset(svgAssets.dropDown)
+                                SvgPicture.asset(eSvgAssets.dropDown)
                               ]))
                       .inkWell(context,
                           onTap: () => dateTimePvr.selectYear(context)),
@@ -109,7 +111,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                           alignment: Alignment.center,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Color(0xffF5F6F7)),
-                          child: SvgPicture.asset(svgAssets.rightArrow))
+                          child: SvgPicture.asset(eSvgAssets.rightArrow))
                       .inkWell(context, onTap: () => dateTimePvr.onRightArrow())
                 ]),
                 const VSpace(15),
@@ -147,17 +149,17 @@ class _DateTimePickerState extends State<DateTimePicker> {
                             dowTextFormatter: (date, locale) =>
                                 DateFormat.E(locale).format(date)[0],
                             weekdayStyle: TextStyle(
-                                color: dateTimePvr.appColor.primaryColor,
+                                color: appColor(context).appTheme.primary,
                                 fontWeight: FontWeight.bold),
                             weekendStyle: TextStyle(
-                                color: dateTimePvr.appColor.primaryColor,
+                                color: appColor(context).appTheme.primary,
                                 fontWeight: FontWeight.bold)),
                         calendarStyle: CalendarStyle(
                             todayDecoration: BoxDecoration(
-                                color: dateTimePvr.appColor.primaryColor,
+                                color: appColor(context).appTheme.primary,
                                 shape: BoxShape.circle)))),
                 ListTile(
-                    leading: Text(textAssets.time,
+                    leading: Text(appFonts.time,
                         style: const TextStyle(fontWeight: FontWeight.bold))),
                 // Positioned(
                 //   child: TimePickerSpinner(
@@ -190,7 +192,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                     //     carouselController: dateTimePvr.carouselController,
                     //     onScroll: (index) => dateTimePvr.onHourScroll(index)),
                     const SizedBox(width: 10),
-                    SvgPicture.asset(svgAssets.colonIcon),
+                    SvgPicture.asset(eSvgAssets.colonIcon),
                     const SizedBox(width: 10),
                     // CustomTimePicker(
                     //     title: "Minute",
@@ -263,7 +265,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                   //         fontSize: 01, color: Colors.transparent),
                   //     highlightedTextStyle: TextStyle(
                   //         fontSize: 22,
-                  //         color: dateTimePvr.appColor.primaryColor),
+                  //         color: appColor(context).appTheme.primary),
                   //     onTimeChange: (time) {
                   //       setState(() {
                   //         dateTime = time;
@@ -272,12 +274,12 @@ class _DateTimePickerState extends State<DateTimePicker> {
                  /*Positioned(
                     left: 0,
                     child: CommonDecrementInkWell(
-                        onTap: () {}, assetPath: svgAssets.decrement),
+                        onTap: () {}, assetPath: eSvgAssets.decrement),
                   ),
                   CommonDecrementInkWell(
-                      onTap: () {}, assetPath: svgAssets.decrement),
+                      onTap: () {}, assetPath: eSvgAssets.decrement),
                   CommonDecrementInkWell(
-                      onTap: () {}, assetPath: svgAssets.decrement),*/
+                      onTap: () {}, assetPath: eSvgAssets.decrement),*/
                 ]),
                 InkWell(
                     onTap: () => dateTimePvr.onAddDateTimeButton(),
@@ -287,10 +289,10 @@ class _DateTimePickerState extends State<DateTimePicker> {
                         alignment: Alignment.center,
                         margin: const EdgeInsets.only(top: 30),
                         decoration: BoxDecoration(
-                            color: dateTimePvr.appColor.primaryColor,
+                            color: appColor(context).appTheme.primary,
                             borderRadius: SmoothBorderRadius(
                                 cornerRadius: 8, cornerSmoothing: 1)),
-                        child: Text(textAssets.addDate,
+                        child: Text(appFonts.addDate,
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
