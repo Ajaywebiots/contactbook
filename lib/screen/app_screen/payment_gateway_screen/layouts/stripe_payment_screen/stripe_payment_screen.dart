@@ -8,8 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:contactbook/common/theme/app_css.dart';
-
-import '../cardtype.dart';
+import 'cardtype.dart';
 
 class StripePaymentScreen extends StatefulWidget {
   const StripePaymentScreen({super.key});
@@ -27,12 +26,13 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PaymentUtils>(builder: (context1, paymentUtilsPvr, child) {
-      return Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+      return SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.white,
+              body: SingleChildScrollView(
+                  child: Column(
+                      children: [
+                        VSpace(Insets.i100),
                 Container(
                     padding: const EdgeInsets.all(20),
                     alignment: Alignment.center,
@@ -41,7 +41,7 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(40))),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+
                         children: [
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -158,117 +158,120 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                                     setState(() {});
                                   })
                                 ])
-                              : SingleChildScrollView(
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                      Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 10),
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                  Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      alignment: Alignment.center,
+                                      height: Insets.i110,
+                                      decoration: BoxDecoration(
+                                          color: appColor(context)
+                                              .appTheme
+                                              .whiteColor,
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(40))),
+                                      child: SizedBox(
+                                          width: 200,
+                                          child: TextField(
+                                              controller:
+                                                  paymentUtilsPvr.amount,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              style: appCss.philosopherBold25
+                                                  .textColor(appColor(context)
+                                                      .appTheme
+                                                      .whiteColor),
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText: 'Add Amount',
+                                                  hintStyle: appCss
+                                                      .philosopherBold25
+                                                      .textColor(
+                                                          appColor(context).appTheme.black)),
+                                              keyboardType: TextInputType.number))),
+                                  Container(
                                           alignment: Alignment.center,
                                           height: Insets.i110,
+                                          width: 100,
                                           decoration: BoxDecoration(
                                               color: appColor(context)
                                                   .appTheme
                                                   .whiteColor,
-                                              borderRadius: const BorderRadius.all(
-                                                  Radius.circular(40))),
-                                          child: SizedBox(
-                                              width: 200,
-                                              child: TextField(
-                                                  controller:
-                                                      paymentUtilsPvr.amount,
-                                                  textAlign: TextAlign.center,
-                                                  maxLines: 1,
-                                                  style: appCss.philosopherBold25
-                                                      .textColor(appColor(context)
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(40))),
+                                          child: Text("Ok",
+                                              style: appCss
+                                                  .philosopherBold18
+                                                  .textColor(
+                                                      appColor(context)
                                                           .appTheme
-                                                          .whiteColor),
-                                                  decoration: InputDecoration(
-                                                      border: InputBorder.none,
-                                                      hintText: 'Add Amount',
-                                                      hintStyle: appCss
-                                                          .philosopherBold25
-                                                          .textColor(
-                                                              appColor(context).appTheme.black)),
-                                                  keyboardType: TextInputType.number))),
-                                      Container(
-                                              alignment: Alignment.center,
-                                              height: Insets.i110,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                  color: appColor(context)
-                                                      .appTheme
-                                                      .whiteColor,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(40))),
-                                              child: Text("Ok",
-                                                  style: appCss
-                                                      .philosopherBold18
-                                                      .textColor(
-                                                          appColor(context)
-                                                              .appTheme
-                                                              .black)))
-                                          .inkWell(context,
-                                              onTap: () => paymentUtilsPvr
-                                                  .stripeSinglePayment(context))
-                                    ]))
+                                                          .black)))
+                                      .inkWell(context,
+                                          onTap: () => paymentUtilsPvr
+                                              .stripeSinglePayment(context))
+                                ])
                         ])),
                 const VSpace(Insets.i30),
-                Form(
-                    child: Column(children: [
-                  TextFormField(
-                      controller: paymentUtilsPvr.cardNumCtrl,
-                      keyboardType: TextInputType.number,
-                      validator: CardUtils.validateCardNum,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(16),
-                        CardNumberInputFormatter()
-                      ],
-                      decoration:
-                          const InputDecoration(hintText: "Card number")),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: TextFormField(
-                          controller: paymentUtilsPvr.name,
-                          decoration:
-                              const InputDecoration(hintText: "Full name"))),
-                  Row(children: [
-                    Expanded(
-                        child: TextFormField(
-                            controller: paymentUtilsPvr.cvvController,
+                paymentUtilsPvr.isPaymentSelected == true
+                    ? Form(
+                        child: Column(children: [
+                        TextFormField(
+                            controller: paymentUtilsPvr.cardNumCtrl,
                             keyboardType: TextInputType.number,
+                            validator: CardUtils.validateCardNum,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
-                              // Limit the input
-                              LengthLimitingTextInputFormatter(3)
+                              LengthLimitingTextInputFormatter(16),
+                              CardNumberInputFormatter()
                             ],
                             decoration:
-                                const InputDecoration(hintText: "CVV"))),
-                    const SizedBox(width: 16),
-                    Expanded(
-                        child: TextFormField(
-                            controller: paymentUtilsPvr.monthController,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(4),
-                              CardMonthInputFormatter()
-                            ],
-                            decoration:
-                                const InputDecoration(hintText: "MM/YY")))
-                  ])
-                ])),
-                Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: ElevatedButton(
-                        child: const Text("Add card"),
-                        onPressed: () => paymentUtilsPvr.subscriptions(
-                            priceId: "price_1NaumuSHGHXeqsVlluKpXWAv")))
-              ]).padding(horizontal: 20)));
+                                const InputDecoration(hintText: "Card number")),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            child: TextFormField(
+                                controller: paymentUtilsPvr.name,
+                                decoration: const InputDecoration(
+                                    hintText: "Full name"))),
+                        Row(children: [
+                          Expanded(
+                              child: TextFormField(
+                                  controller: paymentUtilsPvr.cvvController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    // Limit the input
+                                    LengthLimitingTextInputFormatter(3)
+                                  ],
+                                  decoration:
+                                      const InputDecoration(hintText: "CVV"))),
+                          const SizedBox(width: 16),
+                          Expanded(
+                              child: TextFormField(
+                                  controller: paymentUtilsPvr.monthController,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    LengthLimitingTextInputFormatter(4),
+                                    CardMonthInputFormatter()
+                                  ],
+                                  decoration:
+                                      const InputDecoration(hintText: "MM/YY")))
+                        ])
+                      ]))
+                    : Container(),
+                paymentUtilsPvr.isPaymentSelected == true
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: ElevatedButton(
+                            child: const Text("Add card"),
+                            onPressed: () => paymentUtilsPvr.subscriptions(
+                                priceId: "price_1NaumuSHGHXeqsVlluKpXWAv")))
+                    : Container()
+              ]).padding(horizontal: 20))));
     });
   }
 }

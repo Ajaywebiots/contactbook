@@ -4,8 +4,8 @@ import 'package:contactbook/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/extension/spacing.dart';
-import '../../../../common/theme/app_css.dart';
+import '../../../../../common/extension/spacing.dart';
+import '../../../../../common/theme/app_css.dart';
 import 'button.dart';
 
 class AlertDialogCommon extends StatelessWidget {

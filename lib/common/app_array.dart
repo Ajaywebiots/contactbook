@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/flutter_wave_screen/flutter_wave_screen.dart';
+import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/insta_mojo_screen/insta_mojo_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
@@ -7,7 +9,7 @@ import '../screen/app_screen/payment_gateway_screen/layouts/stripe_payment_scree
 class AppArray {
   List paymentList = [
     {'paymentImage': 'assets/images/instaMojo.png', 'navigate': Container()},
-    {'paymentImage': 'assets/images/flutterWave.png', 'navigate': Container()},
+    {'paymentImage': 'assets/images/flutterWave.png', 'navigate': const FlutterWaveScreen()},
     {'paymentImage': 'assets/images/paypal.png', 'navigate': Container()},
     {'paymentImage': 'assets/images/phonepe.png', 'navigate': Container()},
     {

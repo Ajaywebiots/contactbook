@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../common/theme/app_css.dart';
 import '../../../provider/payment_gateway_provider/paymentutils.dart';
-import 'layouts/stripe_payment_screen/stripe_payment_screen.dart';
 
 class PaymentGatewayScreen extends StatefulWidget {
   const PaymentGatewayScreen({super.key});

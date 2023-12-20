@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
-import '../../screen/app_screen/payment_gateway_screen/layouts/alert_dialog_common.dart';
+import '../../screen/app_screen/payment_gateway_screen/layouts/stripe_payment_screen/alert_dialog_common.dart';
 
 class PaymentUtils extends ChangeNotifier {
   bool isPaymentSelected = false;

@@ -1,8 +1,7 @@
 import 'dart:developer';
-
+import 'package:contactbook/provider/payment_gateway_provider/flutter_wave_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
-import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/demo.dart';
 import 'package:contactbook/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -10,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:contactbook/selection_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'common/assets/index.dart';
-import 'common/theme/app_css.dart';
 import 'common/theme/app_theme.dart';
 import 'common/theme/theme_service.dart';
 import 'provider/auth_provider/register_provider.dart';
@@ -31,7 +28,6 @@ import 'package:contactbook/screen/auth_screen/number_login_screen/firebaseApi.d
 import 'package:contactbook/provider/number_login_provider/home_screen_provider.dart';
 import 'package:contactbook/provider/number_login_provider/number_login_provider.dart';
 import 'package:contactbook/provider/number_login_provider/verification_screen_provider.dart';
-
 import 'routes/index.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -78,8 +74,7 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider(create: (_) => ProductListProvider()),
                   ChangeNotifierProvider(create: (_) => ThemeProvider()),
                   ChangeNotifierProvider(create: (_) => PaymentUtils()),
-                  ChangeNotifierProvider(create: (_) => CardProvider()),
-
+                  ChangeNotifierProvider(create: (_) => FlutterWaveProvider()),
                 ],
                 child: Consumer<ThemeService>(
                     builder: (context, theme, child) {

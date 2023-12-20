@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,7 +12,6 @@ enum CardType {
   Others,
   Invalid
 }
-
 
 class CardNumberInputFormatter extends TextInputFormatter {
   @override
@@ -37,8 +35,6 @@ class CardNumberInputFormatter extends TextInputFormatter {
         selection: TextSelection.collapsed(offset: string.length));
   }
 }
-
-
 
 class CardMonthInputFormatter extends TextInputFormatter {
   @override
@@ -88,6 +84,7 @@ class CardUtils {
     }
     return cardType;
   }
+
   static Widget? getCardIcon(CardType? cardType) {
     String img = "";
     Icon? icon;
@@ -179,6 +176,7 @@ class CardUtils {
     }
     return null;
   }
+
   static String? validateDate(String? value) {
     if (value == null || value.isEmpty) {
       return "This field is required";
@@ -191,7 +189,6 @@ class CardUtils {
       month = int.parse(split[0]);
       year = int.parse(split[1]);
     } else {
-
       month = int.parse(value.substring(0, (value.length)));
       year = -1; // Lets use an invalid year intentionally
     }
@@ -220,17 +217,21 @@ class CardUtils {
     }
     return year;
   }
+
   static bool hasDateExpired(int month, int year) {
     return isNotExpired(year, month);
   }
+
   static bool isNotExpired(int year, int month) {
     // It has not expired if both the year and date has not passed
     return !hasYearPassed(year) && !hasMonthPassed(year, month);
   }
+
   static List<int> getExpiryDate(String value) {
     var split = value.split(RegExp(r'(/)'));
     return [int.parse(split[0]), int.parse(split[1])];
   }
+
   static bool hasMonthPassed(int year, int month) {
     var now = DateTime.now();
     // The month has passed if:
@@ -240,6 +241,7 @@ class CardUtils {
     return hasYearPassed(year) ||
         convertYearTo4Digits(year) == now.year && (month < now.month + 1);
   }
+
   static bool hasYearPassed(int year) {
     int fourDigitsYear = convertYearTo4Digits(year);
     var now = DateTime.now();
@@ -248,4 +250,3 @@ class CardUtils {
     return fourDigitsYear < now.year;
   }
 }
-

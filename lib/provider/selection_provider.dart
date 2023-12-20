@@ -39,13 +39,5 @@ class SelectionProvider extends ChangeNotifier {
     "Payment Gateway Screen",
   ];
 
-  heightMQ(context) {
-    double height = MediaQuery.of(context).size.height;
-    return height;
-  }
 
-  widthMQ(context) {
-    double width = MediaQuery.of(context).size.width;
-    return width;
-  }
 }
