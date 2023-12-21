@@ -12,8 +12,8 @@ import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:contactbook/provider/loading_provider.dart';
-import 'package:contactbook/screen/services/services/api_methods.dart';
-import 'package:contactbook/screen/services/services/api_service.dart';
+import 'package:contactbook/services/services/api_methods.dart';
+import 'package:contactbook/services/services/api_service.dart';
 import 'package:contactbook/utils/helper/navigation_class.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';

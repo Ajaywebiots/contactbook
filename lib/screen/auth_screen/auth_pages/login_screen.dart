@@ -2,12 +2,13 @@ import 'package:contactbook/config.dart';
 import 'package:contactbook/provider/auth_provider/login_provider.dart';
 import 'package:contactbook/screen/auth_screen/auth_pages/register_screen.dart';
 import 'package:contactbook/selection_screen.dart';
-import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:contactbook/user.dart';
 import 'package:contactbook/widgets/text_common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../services/database_model_class.dart';
 
 class LoginScreen extends StatefulWidget {
   final SharedPreferences? prefs;

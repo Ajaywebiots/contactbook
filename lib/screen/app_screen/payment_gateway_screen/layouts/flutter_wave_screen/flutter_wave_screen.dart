@@ -154,7 +154,6 @@ class _FlutterWaveScreenState extends State<FlutterWaveScreen> {
       "USD",
       "GHS",
       "TZS",
-      "INR"
     ];
     return Container(
         height: 250,

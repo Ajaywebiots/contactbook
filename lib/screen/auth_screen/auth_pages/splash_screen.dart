@@ -2,12 +2,13 @@ import 'dart:developer';
 import 'package:contactbook/provider/auth_provider/splashscreen_provider.dart';
 import 'package:contactbook/selection_screen.dart';
 import 'package:contactbook/screen/auth_screen/auth_pages/login_screen.dart';
-import 'package:contactbook/screen/services/database_model_class.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:contactbook/config.dart';
+
+import '../../../services/database_model_class.dart';
 
 class SplashScreen extends StatefulWidget {
   static SharedPreferences? prefs;

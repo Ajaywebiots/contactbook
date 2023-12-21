@@ -1,20 +1,34 @@
 import 'dart:developer';
 import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/flutter_wave_screen/flutter_wave_screen.dart';
 import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/insta_mojo_screen/insta_mojo_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import '../screen/app_screen/payment_gateway_screen/layouts/paypal_screen/paypal_screen.dart';
+import '../screen/app_screen/payment_gateway_screen/layouts/phonepe_screen/phonepe_screen.dart';
 import '../screen/app_screen/payment_gateway_screen/layouts/stripe_payment_screen/stripe_payment_screen.dart';
 
 class AppArray {
   List paymentList = [
-    {'paymentImage': 'assets/images/instaMojo.png', 'navigate': Container()},
-    {'paymentImage': 'assets/images/flutterWave.png', 'navigate': const FlutterWaveScreen()},
-    {'paymentImage': 'assets/images/paypal.png', 'navigate': Container()},
-    {'paymentImage': 'assets/images/phonepe.png', 'navigate': Container()},
+    {'paymentImage': 'assets/images/instaMojo.png', 'navigate': const InstaMojoScreen()},
+    {
+      'paymentImage': 'assets/images/flutterWave.png',
+      'navigate': const FlutterWaveScreen()
+    },
+    {
+      'paymentImage': 'assets/images/paypal.png',
+      'navigate': const PayPalScreen()
+    },
+    {
+      'paymentImage': 'assets/images/phonepe.png',
+      'navigate': const PhonePePayment()
+    },
     {
       'paymentImage': 'assets/images/stripe.png',
       'navigate': const StripePaymentScreen()
+    },
+    {
+      'paymentImage': 'assets/images/razorpay.jpeg',
+      'navigate':  Container()
     }
   ];
 
