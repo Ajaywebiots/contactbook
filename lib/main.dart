@@ -4,6 +4,7 @@ import 'package:contactbook/provider/payment_gateway_provider/insta_mojo_provide
 import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paypal_provider.dart';
+import 'package:contactbook/provider/payment_gateway_provider/razorpay_provider.dart';
 import 'package:contactbook/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider(create: (_) => FlutterWaveProvider()),
                   ChangeNotifierProvider(create: (_) => InstaMojoProvider()),
                   ChangeNotifierProvider(create: (_) => PayPalProvider()),
+                  ChangeNotifierProvider(create: (_) => RazorPayProvider()),
                 ],
                 child: Consumer<ThemeService>(
                     builder: (context, theme, child) {

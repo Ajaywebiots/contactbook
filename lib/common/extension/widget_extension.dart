@@ -738,7 +738,7 @@ extension StyledWidget on Widget {
 
   Widget safeArea() => SafeArea(child: this);
 
-  Widget inkWell({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) => InkWell(
+  Widget inkWell( {GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) => InkWell(
     onLongPress: onLongPress,
     highlightColor: Colors.transparent,
     splashFactory: NoSplash.splashFactory,

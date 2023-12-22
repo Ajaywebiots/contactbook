@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../screen/app_screen/payment_gateway_screen/layouts/paypal_screen/paypal_screen.dart';
 import '../screen/app_screen/payment_gateway_screen/layouts/phonepe_screen/phonepe_screen.dart';
+import '../screen/app_screen/payment_gateway_screen/layouts/razor_pay_screen/razorpay_screen.dart';
 import '../screen/app_screen/payment_gateway_screen/layouts/stripe_payment_screen/stripe_payment_screen.dart';
 
 class AppArray {
+
   List paymentList = [
     {'paymentImage': 'assets/images/instaMojo.png', 'navigate': const InstaMojoScreen()},
     {
@@ -28,7 +30,7 @@ class AppArray {
     },
     {
       'paymentImage': 'assets/images/razorpay.jpeg',
-      'navigate':  Container()
+      'navigate':  const RazorPayScreen()
     }
   ];
 

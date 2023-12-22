@@ -32,7 +32,7 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
               body: SingleChildScrollView(
                   child: Column(
                       children: [
-                        VSpace(Insets.i100),
+                        const VSpace(Insets.i100),
                 Container(
                     padding: const EdgeInsets.all(20),
                     alignment: Alignment.center,
@@ -41,7 +41,6 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(40))),
                     child: Column(
-
                         children: [
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -100,7 +99,7 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text("Week Plan",
+                                            Text("Week Plan ₹200",
                                                 style: appCss.philosopherBold18
                                                     .textColor(appColor(context)
                                                         .appTheme
@@ -138,7 +137,7 @@ class _StripePaymentScreenState extends State<StripePaymentScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            Text("Month Plan",
+                                            Text("Month Plan ₹600",
                                                 style: appCss.philosopherBold18
                                                     .textColor(appColor(context)
                                                         .appTheme

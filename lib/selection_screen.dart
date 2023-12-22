@@ -18,20 +18,10 @@ class SelectionScreen extends StatefulWidget {
 }
 
 class _SelectionScreenState extends State<SelectionScreen> {
-  heightMQ(context) {
-    double height = MediaQuery.of(context).size.height;
-    return height;
-  }
 
-  widthMQ(context) {
-    double width = MediaQuery.of(context).size.width;
-    return width;
-  }
 
   @override
   Widget build(BuildContext context) {
-    double height = heightMQ(context);
-    double width = widthMQ(context);
     return Consumer<SelectionProvider>(builder: (context1, value, child) {
       return SafeArea(
           child: Scaffold(
@@ -84,8 +74,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             decoration: BoxDecoration(
                                 color: Colors.blue,
                                 borderRadius: BorderRadius.circular(10)),
-                            height: height * 0.09,
-                            width: width * 0.9,
+                            height: MediaQuery.of(context).size.height * 0.09,
+                            width: MediaQuery.of(context).size.width * 0.9,
                             alignment: Alignment.center,
                             child: Text(value.screenName[index],
                                 style: const TextStyle(color: Colors.white))));
