@@ -4,7 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
 class InstaMojoProvider extends ChangeNotifier {
+  double progress = 0;
   String? selectedUrl;
+
 
   bool isLoading = true; //this can be declared outside the class
   TextEditingController buyerName = TextEditingController();

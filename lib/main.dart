@@ -4,6 +4,7 @@ import 'package:contactbook/provider/payment_gateway_provider/insta_mojo_provide
 import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paypal_provider.dart';
+import 'package:contactbook/provider/payment_gateway_provider/phone_pe_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/razorpay_provider.dart';
 import 'package:contactbook/user.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -62,8 +62,10 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider(create: (_) => LoginController()),
                   ChangeNotifierProvider(create: (_) => RegisterController()),
                   ChangeNotifierProvider(create: (_) => DashBoardController()),
-                  ChangeNotifierProvider(create: (_) => SplashScreenController()),
-                  ChangeNotifierProvider(create: (_) => LocalContactController()),
+                  ChangeNotifierProvider(
+                      create: (_) => SplashScreenController()),
+                  ChangeNotifierProvider(
+                      create: (_) => LocalContactController()),
                   ChangeNotifierProvider(create: (_) => OnBoardingCtrl()),
                   ChangeNotifierProvider(create: (_) => OnBoardingCtrl1()),
                   ChangeNotifierProvider(create: (_) => OnBoardingCtrl2()),
@@ -81,19 +83,19 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider(create: (_) => InstaMojoProvider()),
                   ChangeNotifierProvider(create: (_) => PayPalProvider()),
                   ChangeNotifierProvider(create: (_) => RazorPayProvider()),
+                  ChangeNotifierProvider(create: (_) => PhonePeProvider()),
                 ],
-                child: Consumer<ThemeService>(
-                    builder: (context, theme, child) {
-                      log("THEME ${theme.isDarkMode}");
-                      return MaterialApp(
-                          title: 'Flutter Demo',
-                          debugShowCheckedModeBanner: false,
-                          theme: AppTheme.fromType(ThemeType.light).themeData,
-                          darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
-                          themeMode: theme.theme,
-                          initialRoute: "/",
-                          routes: appRoute.route);
-                    }));
+                child: Consumer<ThemeService>(builder: (context, theme, child) {
+                  log("THEME ${theme.isDarkMode}");
+                  return MaterialApp(
+                      title: 'Flutter Demo',
+                      debugShowCheckedModeBanner: false,
+                      theme: AppTheme.fromType(ThemeType.light).themeData,
+                      darkTheme: AppTheme.fromType(ThemeType.dark).themeData,
+                      themeMode: theme.theme,
+                      initialRoute: "/",
+                      routes: appRoute.route);
+                }));
           } else {
             return MaterialApp(
                 theme: AppTheme.fromType(ThemeType.light).themeData,
