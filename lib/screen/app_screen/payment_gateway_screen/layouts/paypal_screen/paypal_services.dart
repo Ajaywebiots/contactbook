@@ -8,11 +8,10 @@ class PaypalServices {
   final String clientId, secretKey;
   final bool sandboxMode;
 
-  PaypalServices({
-    required this.clientId,
-    required this.secretKey,
-    required this.sandboxMode,
-  });
+  PaypalServices(
+      {required this.clientId,
+      required this.secretKey,
+      required this.sandboxMode});
 
   getAccessToken() async {
     String baseUrl = sandboxMode
@@ -59,12 +58,10 @@ class PaypalServices {
     try {
       final response = await Dio().post('$domain/v1/payments/payment',
           data: jsonEncode(transactions),
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $accessToken',
-              'Content-Type': 'application/json'
-            },
-          ));
+          options: Options(headers: {
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json'
+          }));
 
       final body = response.data;
       if (body["links"] != null && body["links"].length > 0) {
@@ -88,7 +85,7 @@ class PaypalServices {
       return {
         'error': true,
         'message': "Payment Failed.",
-        'data': e.response?.data,
+        'data': e.response?.data
       };
     } catch (e) {
       rethrow;
@@ -103,12 +100,10 @@ class PaypalServices {
     try {
       final response = await Dio().post(url,
           data: convert.jsonEncode({"payer_id": payerId}),
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $accessToken',
-              'Content-Type': 'application/json'
-            },
-          ));
+          options: Options(headers: {
+            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json'
+          }));
 
       final body = response.data;
       return {'error': false, 'message': "Success", 'data': body};
@@ -116,7 +111,7 @@ class PaypalServices {
       return {
         'error': true,
         'message': "Payment Failed.",
-        'data': e.response?.data,
+        'data': e.response?.data
       };
     } catch (e) {
       return {'error': true, 'message': e, 'exception': true, 'data': null};

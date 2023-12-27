@@ -19,7 +19,7 @@ class _InstaMojoState extends State<InstaMojo> {
   Widget build(BuildContext context) {
     return Consumer<InstaMojoProvider>(builder: (context, instaMojoPvr, child) {
       return StatefulWrapper(
-          onInit: () => Future.delayed(const Duration(milliseconds: 100))
+          onInit: () => Future.delayed(const Duration(milliseconds: 60))
               .then((value) => instaMojoPvr.createRequest()),
           child: Scaffold(
               body: Center(
@@ -32,8 +32,10 @@ class _InstaMojoState extends State<InstaMojo> {
                           onWebViewCreated:
                               (InAppWebViewController controller) {},
                           onProgressChanged:
-                              (InAppWebViewController controller, s) {
-                            this.progress = s / 100;
+                              (InAppWebViewController controller,int s) {
+                            setState(() {
+                              this.progress = s / 100;
+                            });
                           },
                           onUpdateVisitedHistory:
                               (controller, uri, androidIsReload) {

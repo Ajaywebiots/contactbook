@@ -17,16 +17,16 @@ class AlertDialogCommon extends StatelessWidget {
 
   const AlertDialogCommon(
       {Key? key,
-        this.title,
-        this.b1OnTap,
-        this.bText1,
-        this.image,
-        this.subtext,
-        this.crossOnTap,
-        this.height,
-        this.isReward = false,
-        this.style,
-        this.reward})
+      this.title,
+      this.b1OnTap,
+      this.bText1,
+      this.image,
+      this.subtext,
+      this.crossOnTap,
+      this.height,
+      this.isReward = false,
+      this.style,
+      this.reward})
       : super(key: key);
 
   @override
@@ -39,24 +39,21 @@ class AlertDialogCommon extends StatelessWidget {
         content: Stack(alignment: Alignment.topRight, children: [
           Column(mainAxisSize: MainAxisSize.min, children: [
             const VSpace(Sizes.s55),
-            // Gif
             Image.asset(image!, height: height ?? Sizes.s190),
             if (isReward == true)
               Column(children: [
-
                 const VSpace(Sizes.s10),
                 Text("rewardLeft",
                     style: appCss.philosopherBold25
                         .textColor(appColor(context).appTheme.primary))
               ]),
             const VSpace(Sizes.s18),
-            // Sub text
             Text(subtext!,
-                textAlign: TextAlign.center,
-                style: style ??
-    appCss.philosopherBold25
-                        .textColor(appColor(context).appTheme.textFieldClr)
-                        .textHeight(1.3))
+                    textAlign: TextAlign.center,
+                    style: style ??
+                        appCss.philosopherBold25
+                            .textColor(appColor(context).appTheme.textFieldClr)
+                            .textHeight(1.3))
                 .paddingSymmetric(horizontal: Insets.i5),
             const VSpace(Sizes.s25),
             ButtonCommon(onTap: b1OnTap, title: bText1!)
@@ -64,18 +61,17 @@ class AlertDialogCommon extends StatelessWidget {
           Column(mainAxisSize: MainAxisSize.min, children: [
             const VSpace(Sizes.s5),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              // Title
               Text(title!,
-                  style: appCss.dmDenseSemiBold20
-                      .textColor(appColor(context).appTheme.textFieldClr))
+                      style: appCss.dmDenseSemiBold20
+                          .textColor(appColor(context).appTheme.textFieldClr))
                   .paddingSymmetric(horizontal: Insets.i20),
               IconButton(
                   onPressed: crossOnTap,
                   icon: Icon(CupertinoIcons.multiply,
-                      size: Sizes.s20, color: appColor(context).appTheme.lightText))
+                      size: Sizes.s20,
+                      color: appColor(context).appTheme.lightText))
             ]),
-            const VSpace(Sizes.s5),
-
+            const VSpace(Sizes.s5)
           ])
         ]));
   }

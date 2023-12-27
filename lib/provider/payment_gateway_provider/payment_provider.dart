@@ -6,7 +6,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 import '../../screen/app_screen/payment_gateway_screen/layouts/stripe_payment_screen/alert_dialog_common.dart';
 
-class PaymentUtils extends ChangeNotifier {
+class PaymentProvider extends ChangeNotifier {
   bool isPaymentSelected = false;
 
   bool isPlanSelect = false;
@@ -18,7 +18,15 @@ class PaymentUtils extends ChangeNotifier {
   static var secretKey =
       'sk_test_51MmTx1SHGHXeqsVlAbforUpNIqByURbQy2xKZLlDrSNUvtvbgjywaaEZfGsbcQxIh0ggazGXrfnZBy0rQSLCqvzo00PyWPfbne';
 
+  onChangeTap() {
+    notifyListeners();
+    isPaymentSelected = true;
+  }
 
+  onChangeTap1() {
+    notifyListeners();
+    isPaymentSelected = false;
+  }
 
   Map<String, dynamic>? paymentIntent;
 
@@ -123,12 +131,7 @@ class PaymentUtils extends ChangeNotifier {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 
-
-
-
-
-  Future<void> subscriptions(
-      { priceId, context}) async {
+  Future<void> subscriptions({priceId, context}) async {
     isLoading = true;
     notifyListeners();
     final _customer = await createCustomer();
@@ -148,7 +151,7 @@ class PaymentUtils extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
       final invoiceRes =
-      await invoicePay(invoice["latest_invoice"], _paymentMethod['id']);
+          await invoicePay(invoice["latest_invoice"], _paymentMethod['id']);
       log("invoiceRes ${invoiceRes["subscription"]}");
       log("_paymentMethod ${_paymentMethod["id"]}");
       isLoading = false;
@@ -189,6 +192,7 @@ class PaymentUtils extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   Future<Map<String, dynamic>> createSubscriptions(
       customerId, String priceId) async {
     const String url = 'https://api.stripe.com/v1/subscriptions';
@@ -239,7 +243,7 @@ class PaymentUtils extends ChangeNotifier {
         'card[cvc]': cvvController.text,
       },
     );
-   // log('monthController${monthController.text.substring(0, 1)}'); log('monthController${monthController.text.substring(3, 5)}');
+    // log('monthController${monthController.text.substring(0, 1)}'); log('monthController${monthController.text.substring(3, 5)}');
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
@@ -282,7 +286,6 @@ class PaymentUtils extends ChangeNotifier {
     }
   }
 
-
   Future<Map<String, dynamic>> invoicePay(
       String invoiceId, String paymentMethodId) async {
     String url = 'https://api.stripe.com/v1/invoices/$invoiceId/pay';
@@ -298,5 +301,11 @@ class PaymentUtils extends ChangeNotifier {
       print(json.decode(response.body));
       throw 'Failed to open invoice';
     }
+  }
+
+  onTap(context) async {
+    isPlanSelect = true;
+    subscriptions(context: context, priceId: 'price_1NaumuSHGHXeqsVlluKpXWAv');
+    notifyListeners();
   }
 }

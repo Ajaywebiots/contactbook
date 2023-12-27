@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:contactbook/provider/payment_gateway_provider/flutter_wave_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/insta_mojo_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/payment_gateway_provider.dart';
-import 'package:contactbook/provider/payment_gateway_provider/paymentutils.dart';
+import 'package:contactbook/provider/payment_gateway_provider/payment_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paypal_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/phone_pe_provider.dart';
 import 'package:contactbook/provider/payment_gateway_provider/razorpay_provider.dart';
@@ -40,7 +40,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await NotificationServices().initNotification();
-  Stripe.publishableKey = PaymentUtils.publishKey;
+  Stripe.publishableKey = PaymentProvider.publishKey;
   runApp(const MyApp());
 }
 
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
                   ChangeNotifierProvider(create: (_) => ProductListProvider()),
                   ChangeNotifierProvider(create: (_) => ThemeProvider()),
-                  ChangeNotifierProvider(create: (_) => PaymentUtils()),
+                  ChangeNotifierProvider(create: (_) => PaymentProvider()),
                   ChangeNotifierProvider(create: (_) => FlutterWaveProvider()),
                   ChangeNotifierProvider(create: (_) => InstaMojoProvider()),
                   ChangeNotifierProvider(create: (_) => PayPalProvider()),

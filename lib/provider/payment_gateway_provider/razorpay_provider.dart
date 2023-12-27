@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import '../../screen/app_screen/payment_gateway_screen/layouts/razor_pay_screen/demo.dart';
 
 class RazorPayProvider extends ChangeNotifier {
@@ -91,5 +89,14 @@ class RazorPayProvider extends ChangeNotifier {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
+  }
+
+  onTap() {
+    if (amounts.text.toString().isNotEmpty) {
+      notifyListeners();
+      int amount = int.parse(amounts.text.toString());
+      log("Amount entered: $amount");
+      openGateWay(amount);
+    }
   }
 }

@@ -11,7 +11,7 @@ class AppArray {
   List paymentList = [
     {
       'paymentImage': 'assets/images/instaMojo.png',
-      'navigate': const InstaMojoScreen()
+      'navigate': InstaMojoDemo()
     },
     {
       'paymentImage': 'assets/images/flutterWave.png',

@@ -20,8 +20,8 @@ class InstaMojoProvider extends ChangeNotifier {
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
-          "X-Api-Key": "test_b678a7048c8a9e5f69663c2e4fa",
-          "X-Auth-Token": "test_41af76995b230611b2c3b72b8cc"
+          "X-Api-Key": "test_6683d1606445d0934fa0f9fec79",
+          "X-Auth-Token": "test_054480525169d6d31eb1fdce7b1"
         });
     var realResponse = json.decode(response.body);
     print(realResponse);
@@ -62,8 +62,8 @@ class InstaMojoProvider extends ChangeNotifier {
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
-          "X-Api-Key": "test_b678a7048c8a9e5f69663c2e4fa",
-          "X-Auth-Token": "test_41af76995b230611b2c3b72b8cc"
+          "X-Api-Key": "test_6683d1606445d0934fa0f9fec79",
+          "X-Auth-Token": "test_054480525169d6d31eb1fdce7b1"
         },
         body: body);
     log("resp ${resp.body}");
@@ -74,7 +74,8 @@ class InstaMojoProvider extends ChangeNotifier {
       isLoading = false; //setting state to false after data loaded
 
       selectedUrl =
-          "${json.decode(resp.body)["payment_request"]['longurl']}?embed=form";
+          json.decode(resp.body)["payment_request"]['longurl'].toString() +
+              "?embed=form";
 
       log(json.decode(resp.body)['message'].toString());
 //If something is wrong with the data we provided to
