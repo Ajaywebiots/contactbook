@@ -3,6 +3,7 @@ import 'package:contactbook/config.dart';
 import 'package:contactbook/extensions/text_style_extensions.dart';
 import 'package:contactbook/provider/payment_gateway_provider/paypal_provider.dart';
 import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/paypal_screen/paypal_checkout_screen.dart';
+import 'package:contactbook/screen/app_screen/payment_gateway_screen/layouts/paypal_screen/success.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,11 @@ class _PayPalScreenState extends State<PayPalScreen> {
                         "EPtAGaQiNig5iYMuxtoFs_kVimBODw7axl7hSjn21YLPi6aCRJymPoU2n9GtLWNVqXGWj155XRK7Kpcm",
                     onSuccess: (Map params) async {
                       log("onSuccess: $params");
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SuccessPayment(),
+                          ));
                     },
                     onError: (error) {
                       log("onError: $error");

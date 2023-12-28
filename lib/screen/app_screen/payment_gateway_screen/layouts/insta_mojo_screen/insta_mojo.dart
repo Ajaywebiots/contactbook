@@ -6,7 +6,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 
 class InstaMojo extends StatefulWidget {
-  const InstaMojo({super.key});
+  const InstaMojo({Key? key}) : super(key: key);
 
   @override
   State<InstaMojo> createState() => _InstaMojoState();
@@ -24,31 +24,27 @@ class _InstaMojoState extends State<InstaMojo> {
           child: Scaffold(
               body: Center(
                   child: instaMojoPvr.isLoading
-                      ? //check Loading status
-                      const CircularProgressIndicator() //if true
+                      ? const CircularProgressIndicator()
                       : InAppWebView(
                           initialUrlRequest: URLRequest(
-                              url: Uri.tryParse(instaMojoPvr.selectedUrl!)),
+                              url: Uri.parse(instaMojoPvr.selectedUrl)),
                           onWebViewCreated:
                               (InAppWebViewController controller) {},
-                          onProgressChanged:
-                              (InAppWebViewController controller,int s) {
+                          onProgressChanged: (InAppWebViewController controller,
+                              int progress) {
                             setState(() {
-                              this.progress = s / 100;
+                              this.progress = progress / 100;
                             });
                           },
                           onUpdateVisitedHistory:
                               (controller, uri, androidIsReload) {
                             String url = uri.toString();
                             print(uri);
-                            // uri contains newly loaded url
                             if (mounted) {
                               if (url.contains('https://www.google.com/')) {
-                                //Take the payment_id parameter of the url.
                                 String? paymentRequestId =
                                     uri!.queryParameters['payment_id'];
                                 log("value is: ${paymentRequestId!}");
-                                //calling this method to check payment status
                                 instaMojoPvr
                                     .checkPaymentStatus(paymentRequestId);
                               }
